@@ -1,0 +1,4 @@
+# Ignore dspace.cfg
+dspace.cfg
+dspace/config/dspace.cfg
+
