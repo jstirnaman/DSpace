@@ -12,16 +12,21 @@
  -->
 	<!-- Journal -->
 	<!-- Publisher -->
-	<!-- Get Journal Title, , Volume, and Issue from Relation:isPartOf -->
+	<!-- Get Journal Title, Issn, Volume, and Issue from Relation:isPartOf -->
 	<!-- PubDate -->
 	<!-- Article details -->
 	<!-- Only match "ITEM" nodes that have dc.type=Article. This omits Tables of Contents items from output
      since they have a different dc.type.
 -->
-<!--
+<!-- Ideally, the doctype would be applied from this XSL, but it's currently in a separate XSL
+       under themes/Archie-Mirage
+       
     <xsl:output doctype-public="-//NLM//DTD PubMed 2.0//EN" doctype-system="http://www.ncbi.nlm.nih.gov:80/entrez/query/static/PubMed.dtd" indent="yes"/>
  	  
     <xsl:template match="/">
+    	
+    Ideally, the root ArticleSet element would be applied here, but it's set in the DSpaceNLMGenerator instead.
+    
       <xsl:element name="ArticleSet">
     	<xsl:apply-templates select="*[@dspaceType='ITEM' and dspace:field[@element ='type']='Article']"/>
       </xsl:element>     
@@ -32,11 +37,13 @@
 				<xsl:value-of select="concat('hdl:',substring-after(dspace:field[@element ='identifier' and @qualifier='uri'],'http://hdl.handle.net/'))"/>
 			</xsl:variable>
 		<xsl:element name="Article">
+		<!-- Apply Journal data templates -->		
 			<xsl:element name="Journal">
 				<xsl:apply-templates select="dspace:field[@element='publisher']" mode="journalFields"/>
 				<xsl:apply-templates select="dspace:field[@element='relation' and @qualifier='ispartof']" mode="journalFields"/>
 				<xsl:apply-templates select="dspace:field[@element='date' and @qualifier='available']" mode="journalFields"/>
 			</xsl:element>
+	    <!-- Apply Article data templates -->
 			<xsl:apply-templates select="dspace:field[@element ='title']"/>
 			<xsl:apply-templates select="dspace:field[@element='spage']"/>
         	<xsl:apply-templates select="dspace:field[@element ='identifier' and @qualifier='uri']" mode="elocId">
@@ -53,14 +60,13 @@
   			<xsl:apply-templates select="dspace:field[@element='description' and @qualifier='abstract']"/>
 		</xsl:element>
 	</xsl:template>
-	<!-- Journal Data -->
-	<!-- Publisher -->
+	<!-- Apply Publisher data templates -->
 	<xsl:template match="dspace:field[@element='publisher']" mode="journalFields">
 		<xsl:element name="PublisherName">
 			<xsl:value-of select="text()"/>
 		</xsl:element>
 	</xsl:template>
-	<!-- Get Journal Title, I, Volume, and Issue from Relation:isPartOf -->
+	<!-- Get Journal Title, Issn, Volume, and Issue from Relation:isPartOf -->
 	<xsl:template match="dspace:field[@element='relation' and @qualifier='ispartof']" mode="journalFields">
 		<xsl:choose>
 			<xsl:when test="starts-with(., 'urn:ISSN:')">
@@ -69,7 +75,7 @@
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="number(translate(.,'-',''))">
-				<!--Remove any hyphen and test whether it's numeric by comparing to "Not a Number"-->
+				<!-- Remove any hyphen and see if we have a number left -->
 				<xsl:element name="Issn">
 					<xsl:value-of select="text()"/>
 				</xsl:element>
