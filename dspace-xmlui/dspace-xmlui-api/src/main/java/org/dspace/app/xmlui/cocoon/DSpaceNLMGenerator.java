@@ -61,20 +61,13 @@ public class DSpaceNLMGenerator extends AbstractGenerator
                   throw new ResourceNotFoundException("Unable to perform NLM dissemination for "+dso.getHandle()+". NLM crosswalk is only valid for Collections and Items.");
               }
  
-              // Instantiate and execute the NLM plugin
+              // Instantiate and execute the NLM plugin                          
+               DisseminationCrosswalk nlmxwalk = (DisseminationCrosswalk)PluginManager.getNamedPlugin(DisseminationCrosswalk.class,"nlm");
               
-              
-              DisseminationCrosswalk dimxwalk = (DisseminationCrosswalk)PluginManager.getNamedPlugin(DisseminationCrosswalk.class,"dim");
-              DisseminationCrosswalk nlmxwalk = (DisseminationCrosswalk)PluginManager.getNamedPlugin(DisseminationCrosswalk.class,"nlm");
-              
-              //Set the NLM DocType and root element
+              // Set the NLM DocType and root element
+              // DocType doesn't actually work here because Saxoutputter ignores DTD events
               DocType nlmtype = new DocType("ArticleSet", "-//NLM//DTD PubMed 2.0//EN","http://www.ncbi.nlm.nih.gov:80/entrez/query/static/PubMed.dtd");      
               Element nlmroot = new Element(nlmtype.getElementName());
-              
-              //Create the DIM document
-              //Element dimroot = new Element("dims");
-              //Document dimdoc = new Document(dimroot);           
-              //dimroot = dimdoc.getRootElement();
               
               if (dso.getType() == Constants.COLLECTION)
               {   
@@ -92,13 +85,11 @@ public class DSpaceNLMGenerator extends AbstractGenerator
                 {
                     while (iterator.hasNext())
                     {
-                        Item item = iterator.next(); 
-                        //Element dimitem = dimxwalk.disseminateElement(item);
+                        Item item = iterator.next();
   	                    
                         // Use JDOM to insert crosswalked metadata for the item into the parent element
                         Element nlm = nlmxwalk.disseminateElement(item);
   	                    nlmroot.addContent(nlm);
-                        //dimroot.addContent(dimitem);
                     }
                 }
                 finally
@@ -119,25 +110,14 @@ public class DSpaceNLMGenerator extends AbstractGenerator
                   }                
                   Element nlm = nlmxwalk.disseminateElement(item);
                   nlmroot.addContent(nlm);
-                  //Element dimitem = dimxwalk.disseminateElement(item);
-                  //dimroot.addContent(dimitem);
               }
 
               // Create the NLM document with root element and DTD for the Article list.
-                Document nlmdoc = new Document(nlmroot, nlmtype);   
-                
-                // Transform DIM item list to NLM document with proper root element and doctype
-                //Element nlmlist = nlmxwalk.disseminateElement(dimdoc);
-                //nlmdoc.addContent(nlmroot);
-
-              //XSLTransformer nlmtx = nlmxwalk.getTransformer("dissemination");
-
-              //nlmdoc = nlmtx.transform(dimdoc);
+                Document nlmdoc = new Document(nlmroot, nlmtype);
               
                // Output the result
                 SAXOutputter out = new SAXOutputter(contentHandler);
-                out.setLexicalHandler(lexicalHandler);
-            
+                out.setLexicalHandler(lexicalHandler);            
                 out.output(nlmdoc);
 			
 		} catch (JDOMException je) {
