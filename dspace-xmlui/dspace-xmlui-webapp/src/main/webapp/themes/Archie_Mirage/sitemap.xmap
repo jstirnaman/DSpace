@@ -12,6 +12,8 @@
         <map:readers>
             <map:reader name="ConcatenationReader" src="org.dspace.app.xmlui.cocoon.ConcatenationReader"/>
         </map:readers>
+        
+        <!-- Generator the NLM Pubmed Journal Publishing crosswalk -->
                 <map:generators default="file">
                         <map:generator name="DSpaceNLMGenerator" src="org.dspace.app.xmlui.cocoon.DSpaceNLMGenerator"/>
                </map:generators>   
@@ -40,6 +42,8 @@
                                         <map:parameter name="handle" value="{1}/{2}"/>
                                         <map:parameter name="extra" value="{3}"/>
                                 </map:generate>
+                                
+                                <!-- Final transformation adds NLM doctype -->
                                 <map:transform src="nlmGenerator2nlmDocType.xsl"/>
                                 <map:serialize type="xml"/>
                         </map:match>
@@ -48,6 +52,8 @@
                                         <map:parameter name="internal" value="{1}:{2}"/>
                                         <map:parameter name="extra" value="{3}"/>
                                 </map:generate>
+                                
+                                 <!-- Final transformation adds NLM doctype -->
                                 <map:transform src="nlmGenerator2nlmDocType.xsl"/>                               
                                 <map:serialize type="xml"/>
                         </map:match>      
