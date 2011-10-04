@@ -12,21 +12,25 @@
  -->
 	<!-- Journal -->
 	<!-- Publisher -->
-	<!-- Get Journal Title, ISSN, Volume, and Issue from Relation:isPartOf -->
+	<!-- Get Journal Title, , Volume, and Issue from Relation:isPartOf -->
 	<!-- PubDate -->
 	<!-- Article details -->
 	<!-- Only match "ITEM" nodes that have dc.type=Article. This omits Tables of Contents items from output
      since they have a different dc.type.
 -->
-<!--     <xsl:output doctype-public="-//NLM//DTD PubMed 2.0//EN" doctype-system="http://www.ncbi.nlm.nih.gov:80/entrez/query/static/PubMed.dtd" indent="yes"/>
+<!--
+    <xsl:output doctype-public="-//NLM//DTD PubMed 2.0//EN" doctype-system="http://www.ncbi.nlm.nih.gov:80/entrez/query/static/PubMed.dtd" indent="yes"/>
  	  
     <xsl:template match="/">
       <xsl:element name="ArticleSet">
     	<xsl:apply-templates select="*[@dspaceType='ITEM' and dspace:field[@element ='type']='Article']"/>
       </xsl:element>     
     </xsl:template>
--->    
+-->       
 	<xsl:template match="*[@dspaceType='ITEM' and dspace:field[@element ='type']='Article']">
+			<xsl:variable name="handle">
+				<xsl:value-of select="concat('hdl:',substring-after(dspace:field[@element ='identifier' and @qualifier='uri'],'http://hdl.handle.net/'))"/>
+			</xsl:variable>
 		<xsl:element name="Article">
 			<xsl:element name="Journal">
 				<xsl:apply-templates select="dspace:field[@element='publisher']" mode="journalFields"/>
@@ -34,22 +38,19 @@
 				<xsl:apply-templates select="dspace:field[@element='date' and @qualifier='available']" mode="journalFields"/>
 			</xsl:element>
 			<xsl:apply-templates select="dspace:field[@element ='title']"/>
+			<xsl:apply-templates select="dspace:field[@element='spage']"/>
+        	<xsl:apply-templates select="dspace:field[@element ='identifier' and @qualifier='uri']" mode="elocId">
+				<xsl:with-param name="hdl" select="$handle"/>
+			</xsl:apply-templates>						
 			<xsl:element name="AuthorList">
 				<xsl:apply-templates select="dspace:field[@element ='contributor' and @qualifier='author']"/>
 			</xsl:element>
-			<xsl:variable name="handle">
-				<xsl:value-of select="concat('hdl:',substring-after(dspace:field[@element ='identifier' and @qualifier='uri'],'http://hdl.handle.net/'))"/>
-			</xsl:variable>
 			<xsl:element name="ArticleIdList">
 				<xsl:apply-templates select="dspace:field[@element ='identifier' and @qualifier='uri']" mode="articleId">
 					<xsl:with-param name="hdl" select="$handle"/>
 				</xsl:apply-templates>
 			</xsl:element>
-        	<xsl:apply-templates select="dspace:field[@element ='identifier' and @qualifier='uri']" mode="elocId">
-				<xsl:with-param name="hdl" select="$handle"/>
-			</xsl:apply-templates>
   			<xsl:apply-templates select="dspace:field[@element='description' and @qualifier='abstract']"/>
-			<xsl:apply-templates select="dspace:field[@element='spage']"/>
 		</xsl:element>
 	</xsl:template>
 	<!-- Journal Data -->
@@ -59,17 +60,17 @@
 			<xsl:value-of select="text()"/>
 		</xsl:element>
 	</xsl:template>
-	<!-- Get Journal Title, ISSN, Volume, and Issue from Relation:isPartOf -->
+	<!-- Get Journal Title, I, Volume, and Issue from Relation:isPartOf -->
 	<xsl:template match="dspace:field[@element='relation' and @qualifier='ispartof']" mode="journalFields">
 		<xsl:choose>
 			<xsl:when test="starts-with(., 'urn:ISSN:')">
-				<xsl:element name="ISSN">
+				<xsl:element name="Issn">
 					<xsl:value-of select="substring-after(text(),'urn:ISSN:')"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="number(translate(.,'-',''))">
 				<!--Remove any hyphen and test whether it's numeric by comparing to "Not a Number"-->
-				<xsl:element name="ISSN">
+				<xsl:element name="Issn">
 					<xsl:value-of select="text()"/>
 				</xsl:element>
 			</xsl:when>
@@ -141,11 +142,17 @@
 			<xsl:element name="LastName">
 				<xsl:value-of select="substring-before(text(),',')"/>
 			</xsl:element>
+			<xsl:if test="position()=1">
+		      <xsl:element name="Affiliation">
+				<xsl:value-of select="../dspace:field[@element='contributor' and @qualifier='organization']"/>
+		      </xsl:element>			    
+			</xsl:if>		    
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="dspace:field[@element='identifier' and @qualifier='uri']" mode="articleId">
 		<xsl:param name="hdl"/>
 		<xsl:element name="ArticleId">
+			<xsl:attribute name="IdType">pii</xsl:attribute>
 			<xsl:value-of select="$hdl"/>
 		</xsl:element>
 	</xsl:template>
