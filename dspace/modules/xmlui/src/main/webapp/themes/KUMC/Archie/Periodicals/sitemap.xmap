@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!--
+  sitemap.xmap
+
+  Version: $Revision: 1.6 $
+
+  Date: $Date: 2006/07/27 22:54:52 $
+
+-->
+<!--
+	Periodicals theme for XMLUI/Manakin provided courtesy of Texas Digital Library
+		http://repositories.tdl.org/tdl/themes/TDL/Periodicals/sitemap.xmap
+	Expects a custom set of metadata residing in Collection metadata and isPartOf
+	relational metadata in each item.
+	The custom metadata defines journal issues and associates an issue with a handle.
+	Example metadata from TDL:
+		<issues xmlns:tdl="http://www.tdl.org/NS/tdl"
+			xmlns="http://www.tdl.org/NS/tdl ">
+			<issue vol="66" num="3&4" year="2008" name="" handle="2249.1/5643"/>
+        	<issue vol="66" num="1&2" year="2008" name="" handle="2249.1/5546"/>
+			<issue vol="65" num="3&4" year="2007" name="" handle="2249.1/5496"/>
+        	<issue vol="65" num="1&2" year="2007" name="" handle="2249.1/5438"/>
+        </issues>
+      Add xml describing journal issues in the metadata of the collection,
+      then the theme knows to interpret this small bit of data to build a browsable
+      list of journal issues. Each of those provide links to a masked search page
+      for individual articles, plus a list to an item that contains the full pdf
+      for the journal.
+-->
+<map:sitemap xmlns:map="http://apache.org/cocoon/sitemap/1.0">
+	<map:pipelines>
+		<!--
+			Define global theme variables that are used later in this
+			sitemap. Two variables are typically defined here, the theme's
+			path and name. The path is the directory name where this theme
+			is located, such as "Reference" for the reference theme. The
+			theme's name is used only for descriptive purposes to describe
+			the theme.
+		-->
+		<map:component-configurations>
+			<global-variables>
+				<theme-path>KUMC/Archie</theme-path>
+				<theme-name>The official Archie theme</theme-name>
+			</global-variables>
+		</map:component-configurations>
+		<map:pipeline>
+
+			<!-- Deliver static theme content -->
+			<map:match pattern="themes/*/Periodicals/**">
+				<map:read src="{2}"/>
+			</map:match>
+
+			<!-- Handle dynamic content (aka the normal HTML page) -->
+			<map:match pattern="**">
+				<map:generate type="file" src="cocoon://DRI/{1}"/>
+
+				<!-- Add special metadata elements to the DRI page -->
+			    <!-- Step 2 Add page metadata -->
+			    <map:select type="browser">
+			        <map:when test="explorer6">
+			            <map:transform type="IncludePageMeta">
+			                <map:parameter name="stylesheet.screen#1" value="lib/style.css"/>
+			                <map:parameter name="stylesheet.screen#2" value="lib/style-ie7.css"/>
+			                <map:parameter name="stylesheet.screen#2" value="lib/style-ie6.css"/>
+			                <map:parameter name="stylesheet.screen#4" value="Periodicals/special.css"/>
+			                <map:parameter name="javascript#1" value="lib/jquery-1.2.min.js"/>
+			                <map:parameter name="javascript#2" value="lib/tdl.js"/>
+			                <map:parameter name="theme.path" value="{global:theme-path}"/>
+			                <map:parameter name="theme.name" value="{global:theme-name}"/>
+			            </map:transform>
+			        </map:when>
+			        <map:when test="explorer7">
+			            <map:transform type="IncludePageMeta">
+			                <map:parameter name="stylesheet.screen#1" value="lib/style.css"/>
+			                <map:parameter name="stylesheet.screen#2" value="lib/style-ie7.css"/>
+			                <map:parameter name="stylesheet.screen#3" value="Periodicals/special.css"/>
+			                <map:parameter name="javascript#1" value="lib/jquery-1.2.min.js"/>
+			                <map:parameter name="javascript#2" value="lib/tdl.js"/>
+			                <map:parameter name="theme.path" value="{global:theme-path}"/>
+			                <map:parameter name="theme.name" value="{global:theme-name}"/>
+			            </map:transform>
+			        </map:when>
+			        <!-- the otherwise block catches firefox (also opera or netscape) -->
+			        <map:otherwise>
+			            <map:transform type="IncludePageMeta">
+			                <map:parameter name="stylesheet.screen#1" value="lib/style.css"/>
+			                <map:parameter name="stylesheet.screen#2" value="Periodicals/special.css"/>
+			                <map:parameter name="javascript#1" value="lib/jquery-1.2.min.js"/>
+			                <map:parameter name="javascript#3" value="lib/tdl.js"/>
+			                <map:parameter name="theme.path" value="{global:theme-path}"/>
+			                <map:parameter name="theme.name" value="{global:theme-name}"/>
+			            </map:transform>
+			        </map:otherwise>
+			    </map:select>
+
+				<!-- Handle the special search case output -->
+				<map:match type="request" pattern="hidesearch">
+					<map:transform type="IncludePageMeta">
+						<map:parameter name="search.hideForm" value="TRUE"/>
+					</map:transform>
+				</map:match>
+
+				<!-- Debuging output -->
+				<map:match type="request" pattern="XML">
+					<map:serialize type="xml"/>
+				</map:match>
+
+				<!-- Step 3: Transform to XHTML -->
+				<map:transform src="Periodicals.xsl"/>
+
+				<!-- Step 4: Localize the page -->
+				<map:act type="locale">
+					<map:transform type="i18n">
+						<map:parameter name="locale" value="{locale}"/>
+					</map:transform>
+				</map:act>
+
+				<!-- Remove any leftover i18n or dri namespaces from the final document -->
+				<map:transform type="NamespaceFilter" src="http://di.tamu.edu/DRI/1.0/"/>
+				<map:transform type="NamespaceFilter" src="http://apache.org/cocoon/i18n/2.1"/>
+				<map:transform type="NamespaceFilter" src="http://www.loc.gov/mods/v3"/>
+				<map:transform type="NamespaceFilter" src="http://www.w3.org/TR/xlink/"/>
+				<map:transform type="NamespaceFilter" src="http://www.dspace.org/xmlns/dspace/dim"/>
+				<map:transform type="NamespaceFilter" src="http://purl.org/dc/elements/1.1/"/>
+				<map:transform type="NamespaceFilter" src="http://www.loc.gov/METS/"/>
+
+				<!-- the above transformers don't seem to be removing all namespaces
+				     the following transformation will use XSL to remove them -->
+				<map:transform src="../misc/final.xsl"/>
+
+				<!--For ie6 browser, we also strip out the <?xml... declaration to ensure standards mode -->
+			    <map:select type="browser">
+			        <map:when test="explorer6">
+			            <map:serialize type="html"/>
+			        </map:when>
+			        <map:otherwise>
+			            <map:serialize type="xhtml"/>
+			        </map:otherwise>
+			    </map:select>
+			</map:match>
+		</map:pipeline>
+	</map:pipelines>
+</map:sitemap>

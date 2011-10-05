@@ -1,0 +1,350 @@
+/**** Modified from Kubrick/style.css ****/
+
+/** page elements **/
+body {
+/* background:#D5D6D7 url(../../images/kubrickbgcolor.jpg) repeat scroll 0%; */
+background:none;
+color:#333333;
+font-family:'Lucida Grande',Verdana,Arial,Sans-Serif;
+font-size:62.5%;
+text-align:center;
+margin:0pt 0pt 20px;
+padding:0pt;
+}
+
+h1, h2, h3 {font-size: %90;}
+
+a{
+color: #0049ae;
+}
+
+fieldset {
+	left: 0px;
+}
+/** Kubrick IDs and classes **/
+#page {
+text-align:left;
+/*border:1px solid #959596;*/
+margin:8px auto;
+padding:0pt;
+width:960px;
+/*background:transparent url(../../images/kubrickbg.jpg) repeat-y scroll center top;*/
+background: none;
+border:medium none;
+}
+
+.narrowcolumn {
+float:right;
+margin:0 10px 0 0;
+padding:0 0 20px;
+width:640px;
+}
+
+
+a.trail_anchor {
+	color:#0049ae;
+}
+
+#sidebar {
+font-family:'Lucida Grande',Verdana,Arial,Sans-Serif;
+font-size:1.2em;
+font-size-adjust:none;
+font-style:normal;
+font-variant:normal;
+font-weight:normal;
+line-height:normal;
+margin-left:0px;
+padding:0px 0 10px 20px;
+width:260px;
+}
+
+#sidebar .ds-option-set-head {
+	margin-top: 15px;
+}
+
+#footer {
+/*background:#EEEEEE url(../../images/kubrickfooter.jpg) no-repeat scroll center top;*/
+background:none;
+border:medium none;
+clear:both;
+margin:0pt auto;
+padding:0pt;
+width:960px;
+}
+
+#footer a {
+padding-bottom: 0px;
+padding-top: 0px;
+margin: auto;
+}
+
+#ds-header {
+background: none;
+/* background:url(../../images/kubrickheader.jpg) /*no-repeat*/ repeat-y scroll center bottom; */
+/*background-color:#73A0C5;*/
+height:140px;
+margin:0pt 0pt 0pt 1px;
+padding:0pt;
+width:958px;
+}
+
+#ds-header h1, #ds-header h2 {
+	color: #333333;
+}
+
+#ds-header h2 {
+font-size: 1.5em;
+top: 0px;
+padding-top: 0px;
+}
+
+#ds-header h2.static-pagetitle {
+	font-size: 1.5em;
+	text-align: left;
+	top: -20px;
+}
+
+#ds-search-option-head {
+	margin-top: 0px;
+	position: absolute;
+	left: -175px;
+	border: none;
+}
+
+#ds-search-option {
+	position: absolute;
+	top: 5px;
+	left: 310px;
+}
+
+#ds-search-form-advanced-search-link{
+	left: -100px;
+	position: absolute;
+	top: 20px;
+}
+
+h3.ds-option-set-head{
+	border-top: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+	background-color: #ffffff;
+}
+
+#ds-trail {
+	top: 0px;
+	color: #333333;
+}
+
+#ds-trail .trail-separator {
+	color: #333333;
+	font-size: 110%;
+}
+
+#ds-footer-links {
+	position:relative;
+	width:640px;
+	left: 298px;
+}
+
+#ds-user-box{
+	top: 0;
+}
+
+#aspect_artifactbrowser_CollectionViewer_div_collection-search-browse,
+#aspect_artifactbrowser_CommunityViewer_div_community-search-browse {
+	background-color: #f3f3f3;
+}
+
+#aspect_artifactbrowser_CollectionViewer_field_query,
+#aspect_artifactbrowser_CommunityViewer_field_query {
+	width: 250px;
+}
+
+textarea.ds-textarea-field textarea.submit-textarea {
+	width: 400px;
+}
+
+span.ds-form-label, label.ds-form-label {
+	width: 440px;
+}
+
+/******* Modified from kumc.css *********/
+#kumc_topmostheader{
+	width: 960px;
+}
+#kumc_topbar{
+	background-image:url(../../images/kumc_masthead_3color_bar.gif);
+	background-repeat:no-repeat;
+}
+#kumc_header_links{
+	font-size: 100%;
+}
+#kumc_titlebar{
+		width:960px;
+		height:28px;
+		clear:both;
+		font-family: Arial, Helvetica, sans-serif;
+		border-bottom:1px solid #cccccc;
+		margin-left: auto;
+		margin-right: auto;
+}
+#kumc_searchform #searchtype, #kumc_searchform #searchtext {
+	width: 160px;
+	font-size: 1.2em;
+	vertical-align: bottom;
+}
+#kumc_footer{
+		margin:0 auto;
+		width: 960px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:100%;
+		color:#333333 !important;
+		height:118px;
+}
+#kumc_contactinfo{
+		float:left;
+		width:298px;
+		padding:0px;
+}
+
+/** Dykes Library Styles **/
+.feedburnerFeedBlock ul {
+  list-style-type: none;
+  margin-top: 0;
+  padding-left: 0;
+}
+
+.feedburnerFeedBlock li {
+  margin: .8em 0;
+}
+.feedburnerFeedBlock #creditfooter {
+	display: none;
+}
+/** JQuery Cycle Styles **/
+#kumc-cycle-banner {height:190px;}
+#kumc-cycle-banner-nav a { border: 1px solid #ccc;
+background: #ddd;
+text-decoration: none;
+margin: 0 5px;
+padding: 3px 5px;  }
+#kumc-cycle-banner-nav a.activeSlide { background: #ea0 }
+#kumc-cycle-banner-nav a:focus { outline: none; }
+#kumc-cycle-banner-pics {
+	background-color: #ffffff;
+}
+
+kumc-cycle-banner-item {
+	font-size: 14px;
+	font-weight: normal;
+}
+.pics {
+	text-align: center;
+	color: #ffffff;
+	height: 190px;
+	width: 640px;
+}
+.pics img {
+    background-color: #fff;
+    height: 150px;
+    width: 610px;
+    padding: 10px;
+}
+.pics h1 {
+	color: #333333;
+}
+.pics h2 {
+	color: #fff;
+	position: absolute;
+	top: 172px;
+	left: 0px;
+	margin-left: 10px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	background-color: #000;
+	z-index: 9;
+	font-size: 14px;
+	font-weight: normal;
+}
+.pics-head {
+	color: #fff;
+	position: absolute;
+	top: 172px;
+	left: 4px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	background-color: #000;
+	height: 20px;
+	width: 632px;
+}
+.pics div a {
+	text-decoration:none;
+}
+
+/** Archie custom styles **/
+#kumc-archie-searchbar{
+	height: 38px;
+	padding: 3px 0;
+	position: relative;
+}
+
+#kumc-archie-searchbar .ds-text-field{
+	width: 200px;
+	font-size: 1em;
+}
+
+#kumc-archie-searchbar .ds-button-field{
+	font-size: 1em;
+}
+
+.kumc-ds-search-form-scope-all{
+	float: left;
+}
+.kumc-ds-search-form-scope-container{
+	float: left;
+	margin: -11px;
+	padding-left: 15px;
+}
+
+#kumc-archie-right-column{
+	float:right;
+	padding-right:10px;
+	width:310px;
+}
+#kumc-archie-left-column{
+	float:left;
+	width:300px;
+}
+#kumc-archie-left-column .ds-div-head, #kumc-archie-right-column .ds-div-head {
+	padding-top: 5px;
+}
+
+/* DEFAULT STYLES FOR MENTION-IT */
+.mentions-header
+{
+  border-bottom: 1px solid #CCCCCC;
+  font-size:110%;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.mentions
+{
+  list-style-type: none;
+}
+.mention-post
+{
+  margin-left:20px;
+  padding-bottom: 10px;
+  font-weight: normal;
+}
+.mention-comment
+{
+  margin-left: 20px;
+  color: gray;
+  font-size: smaller;
+  border-bottom: thin dotted gray;
+}
+#example-search
+{
+  font-weight: bold;
+  padding-bottom: 40px;
+  font-size: 150%;
+}

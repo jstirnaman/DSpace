@@ -1,0 +1,115 @@
+/**KUMC custom stylesheet**/
+
+/**Override element styles**/
+ul li {list-style-type: none;
+    margin: 0px;    
+}
+
+a {color: #0022B4;}
+
+/**Override ID styles **/
+
+div#azbox {
+	height: auto;
+	width: auto;
+}
+
+#azbox ul {
+	padding-bottom: 0;
+}
+
+#aspect_discovery_SiteRecentSubmissions_div_site-home {
+	float: left;
+	margin-right: 16px;
+	width: 320px;
+	margin-top: 0px;
+}
+
+/**Hide the search box text**/
+form#aspect_discovery_SiteViewer_div_front-page-search > p:first-child {
+	visibility: hidden;
+	display: none;
+}
+
+#ds-content {
+	margin-top: 40px;
+}
+
+#ds-body {
+	width: 650px;
+	margin-left: 30px;
+}
+#ds-trail-wrapper {background-color: #fff;
+    border: none;
+	text-align: left;
+}
+
+#ds-trail li {color: auto;}
+
+#ds-trail a, #ds-user-box a {color: #0022B4;}
+
+#ds-user-box p {margin: 0px;
+    text-align: right;
+}
+
+#ds-user-box {
+	margin: auto;
+	position: relative;
+	width: 900px;
+}
+
+#ds-search-form fieldset, fieldset {
+	border: none;
+}
+
+.ds-button-field,
+#aspect_eperson_StartRegistration_list_registration-progress li {
+    background-color: #4059C7;
+    border: 1px solid #1F3F5E;
+    padding: 2px 5px;
+    color: #FFFFFF;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+div#tmpSlideshow {
+	height: 175px;
+	min-height: 175px;
+}
+
+div#tmpSlideshowControls {
+	width: 100%;
+    margin: 2px 0 0 435px;	
+}
+
+#toptabnav ul li, #toptabnav p {font-size: 100%;}
+
+
+/** Override class styles **/
+h1.ds-option-set-head {
+    margin-top: 20px;
+	margin-bottom: 0px;
+    background: url("https://www.kumc.edu/Images/template2009/widgets/rightnavheaderbg.gif") no-repeat scroll left top transparent;
+    border-bottom: 1px dotted #CCCCCC;
+	color: #A5AAAB
+}
+
+div.ds-option-set {
+    border: 1px solid #dddddd;
+    border-top: none;
+}
+
+div.tmpSlide, div.tmpSlide img {
+	width: 520px;
+	height: 150px;
+}
+
+.artifact-title {
+	font-size: 100%;
+}
+
+.primary {
+	margin-top: 0px;
+}
+
+
