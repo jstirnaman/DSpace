@@ -156,7 +156,7 @@
         <xsl:attribute name="id">
          <xsl:value-of select="concat(translate(@id,'.','_'),'_indicator')"/>
         </xsl:attribute>
-        <img alt="Loading...">
+        <img alt="Loading..." id="lookup_indicator_id">
           <xsl:attribute name="src">
            <xsl:value-of select="concat($theme-path,'/images/authority_control/suggest-indicator.gif')"/>
           </xsl:attribute>
