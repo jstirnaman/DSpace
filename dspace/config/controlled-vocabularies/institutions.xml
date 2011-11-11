@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Institutions
+-->
+<node id="INSTITUTION" label="Institution">
+			<isComposedBy>
+				<node id="KUMC" label="The University of Kansas Medical Center">
+					<isComposedBy>
+						<node id="KUMCSOMK" label="KU School of Medicine-Kansas City, 3901 Rainbow Blvd, Kansas City, KS 66160, USA."/>
+						<node id="KUMCSOMS" label="KU School of Medicine-Salina, 400 South Santa Fe Ave, Salina, KS 67401, USA."/>
+						<node id="KUMCSOMW" label="KU School of Medicine-Wichita, 1010 North Kansas, Wichita, KS 67214-3199, USA."/>
+						<node id="KUMCSONK" label="KU School of Nursing, 3901 Rainbow Blvd, Kansas City, KS 66160, USA."/>
+						<node id="KUMCSHPK" label="KU School of Health Professions, 3901 Rainbow Blvd, Kansas City, KS 66160, USA."/>
+				   </isComposedBy>
+				</node>
+				<node id="KUL" label="The University of Kansas, Lawrence, KS 66045, USA."/>
+			</isComposedBy>
+</node>
