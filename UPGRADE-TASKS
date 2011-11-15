@@ -1,0 +1,17 @@
+DSpace upgrade checklist:
+Add config changes
+Finalize look and feel
+Disable authentication options in production config or disable e-person aspect in xmlui.xconf and restart Tomcat
+git archive 1.7.1 branch src code to /websys/src/dspace
+git archive 1.6.1 dspace.cfg to /websys/install/dspace
+check permissions on everything (webservd)
+snapshot database, copy assetstore
+as dspace, run 1.5.2-1.6.x database upgrade scripts against db copy
+remove 1.6.1 dspace.cfg
+double-check 1.7.1 dspace.cfg
+as dspace, run 1.6.x-1.7.x upgrade scripts against db and assetstore copies
+rebuild search
+import logs
+mvn, ant build to /websys/install
+deploy webapps
+configure Tomcat 6 server.xml for port 80
