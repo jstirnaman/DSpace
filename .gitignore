@@ -2,3 +2,5 @@
 dspace.cfg
 dspace/config/dspace.cfg
 .project
+*.zip
+
