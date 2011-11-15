@@ -2,8 +2,17 @@
 <document xmlns="http://di.tamu.edu/DRI/1.0/" xmlns:i18n="http://apache.org/cocoon/i18n/2.1" version="1.1">
 <body>
 <div id="file.news.div.news" n="news" rend="primary">
-<head>DSpace/Manakin Repository</head>
-<p>Welcome to the new Manakin interface to the DSpace digital repository.  DSpace is a digital service that collects, preserves, and distributes digital material. Repositories are important tools for preserving an organization&apos;s legacy; they facilitate digital preservation and scholarly communication.</p>
+<!-- <head>About Archie</head> -->
+<p>
+Archie is a service provided for KUMC faculty, staff, students, and partners.
+Our goal is to collect, preserve, and promote KUMC scholarship.
+We collect peer-reviewed literature, e-journals, video/audio presentations, and historical collections in the health sciences.
+</p>
+<p>
+<xref target="mailto:dspace@kumc.edu">Contact us</xref>. We can answer your questions about adding content, managing copyright, and NIH public access policy co
+mpliance.
+<xref target="http://library.kumc.edu/archie/about.htm">Learn more about Archie</xref>
+</p>
 </div>
 </body>
 <options/>

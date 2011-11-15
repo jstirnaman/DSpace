@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE input-forms SYSTEM "input-forms.dtd">
 
 
@@ -14,7 +14,13 @@
  <!-- the mapping for handle "default".                                    -->
 
  <form-map>
-   <name-map collection-handle="default" form-name="traditional" />
+ 	<!-- Set forms with PubMed-required metadata as the default. Specify any other
+ 	collection that needs different fields. Since KJM is creating a new Collection
+ 	for each issue there's no way to predict what the handles will be.
+ 	This is a very undesirable setup all round, but seems the easiest way out for now.
+ -->
+   <name-map collection-handle="default" form-name="kumc-pubmed-required" />
+   <name-map collection-handle="2271/395" form-name="kumc-default-minimal" />   
  </form-map>
 
 
@@ -35,7 +41,281 @@
  <!-- serves as a 'this field is required' flag.                           -->
 
  <form-definitions>
+   <form name="kumc-default-minimal">
+     <page number="1">
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>contributor</dc-element>
+         <dc-qualifier>author</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Authors</label>
+         <input-type>name</input-type>
+         <hint>Enter the names of the authors of this item below. For committee authorship, enter the committee's name in the Last Name field.</hint>
+         <required></required>
+       </field>
 
+        <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>title</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Title</label>
+         <input-type>onebox</input-type>
+         <hint>Enter the main title of the item.</hint>
+         <required>You must enter a main title for this item.</required>
+       </field>
+       
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>date</dc-element>
+         <dc-qualifier>issued</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Date of Issue</label>
+         <input-type>date</input-type>
+         <hint>Enter the date of previous publication or public distribution
+                        below.  You can leave out the day and/or month if they aren't
+                        applicable.</hint>
+         <required>You must enter at least the year.</required>
+       </field> 
+ 
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>publisher</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Publisher</label>
+         <input-type>onebox</input-type>
+         <hint>Enter the name of the publisher of the previously issued instance of this item.</hint>
+         <required></required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>relation</dc-element>
+         <dc-qualifier>ispartofseries</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Series/Report No.</label>
+         <input-type>series</input-type>
+         <hint>Enter the series and number assigned to this item by your community.</hint>
+         <required></required>
+       </field>
+       
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>type</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Type</label>
+         <input-type value-pairs-name="common_types">dropdown</input-type>
+         <hint> Select the type(s) of content of the item. To select more than one value in the list, you may have to hold down the "CTRL" or "Shift" key.</hint>
+         <required></required>
+       </field>
+     </page>       
+     <page number="2">
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>subject</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <!-- An input-type of twobox MUST be marked as repeatable -->
+         <repeatable>true</repeatable>
+         <label>Subject Keywords</label>
+         <input-type>twobox</input-type>
+         <hint> Enter appropriate subject keywords or phrases below. </hint>
+         <required></required>
+         <vocabulary>srsc</vocabulary>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>description</dc-element>
+         <dc-qualifier>abstract</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Abstract</label>
+         <input-type>textarea</input-type>
+         <hint> Enter the abstract of the item below. </hint>
+         <required></required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>description</dc-element>
+         <dc-qualifier>sponsorship</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Sponsors</label>
+         <input-type>textarea</input-type>
+         <hint> Enter the names of any sponsors and/or funding codes in the box below. </hint>
+         <required></required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>description</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Description</label>
+         <input-type>textarea</input-type>
+         <hint> Enter any other description or comments in this box. </hint>
+         <required></required>
+       </field>
+       
+     </page>
+                          	
+   </form>
+<!-- End kumc-default-minimal -->
+
+   <form name="kumc-pubmed-required">
+     <page number="1">
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>contributor</dc-element>
+         <dc-qualifier>author</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Authors</label>
+         <input-type>name</input-type>
+         <hint>Enter the names of the authors or creators of this item. For committee authorship, enter committee name as Last Name.</hint>
+         <required>You must enter an author name for this item.</required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>contributor</dc-element>
+         <dc-qualifier>organization</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Institutional Affiliation</label>
+         <!-- This should have a suggest style -->
+         <input-type>onebox</input-type>
+         <hint>Enter the name of the primary author's institution, e.g. University of Kansas Medical Center, Wichita, KS.
+         	Start typing to see a list of suggested locations.
+         </hint>
+         <required></required>
+         <vocabulary closed="false">institutions</vocabulary>
+       </field>
+       
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>title</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Title</label>
+         <input-type>onebox</input-type>
+         <hint>Enter the main title of the item.</hint>
+         <required>You must enter a main title for this item.</required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>publisher</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Publisher</label>
+         <!-- This should have a suggest style -->
+         <input-type>onebox</input-type>
+         <hint>Enter the name of the publisher, e.g. University of Kansas Medical Center.</hint>
+         <required></required>
+       </field>
+       
+      <field>
+        <dc-schema>rft</dc-schema>
+        <dc-element>spage</dc-element>
+        <dc-qualifier></dc-qualifier>
+        <repeatable>false</repeatable>
+        <label>Starting Page Number</label>
+        <input-type>onebox</input-type>
+        <hint>Enter the starting page number if the item is part of a larger work, e.g. a journal article or book chapter.</hint>
+        <required></required>
+     </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>ispartof</dc-element>
+         <dc-qualifier>title</dc-qualifier>
+         <!-- This should have a suggest style. -->
+         <repeatable>false</repeatable>
+         <label>Journal/Series/Book Title</label>
+         <input-type>onebox</input-type>
+         <hint>Enter the title of the journal, series, or larger work this item was published in, e.g. Kansas Journal of Medicine.</hint>
+         <required></required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>ispartof</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <!-- An input-type of qualdrop_value MUST be marked as repeatable -->
+         <repeatable>true</repeatable>
+         <label>Journal/Series/Book Identifier</label>
+         <!-- This should have a suggest or lookup style -->
+         <input-type value-pairs-name="common_identifiers">qualdrop_value</input-type>
+         <hint>If the larger work item has any identification numbers, please select the types and enter the numbers or codes below. Journals have an ISSN. Books have an ISBN.</hint>
+         <required></required>
+       </field>
+       
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>ispartof</dc-element>
+         <dc-qualifier>volume</dc-qualifier>
+         <!-- An input-type of qualdrop_value MUST be marked as repeatable -->
+         <repeatable>false</repeatable>
+         <label>Volume Number</label>
+         <!-- This should have a suggest style -->
+         <input-type>onebox</input-type>
+         <hint>Volume number or volume name of the larger work, e.g. 1 or 2011.</hint>
+         <required></required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>ispartof</dc-element>
+         <dc-qualifier>issue</dc-qualifier>
+         <!-- An input-type of qualdrop_value MUST be marked as repeatable -->
+         <repeatable>false</repeatable>
+         <label>Issue Number</label>
+         <!-- This should have a suggest style -->
+         <input-type>onebox</input-type>
+         <hint>Issue number or issue name of the larger work, e.g. 1 or Summer 2011.</hint>
+         <required></required>
+       </field>      
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>type</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Type</label>
+         <input-type value-pairs-name="common_types">dropdown</input-type>
+         <hint> Select the type(s) of content of the item. To select more than one value in the list, you may have to hold down the "CTRL" or "Shift" key.</hint>
+         <required></required>
+       </field>
+
+     </page>
+
+     <page number="2">
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>subject</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <!-- An input-type of twobox MUST be marked as repeatable -->
+         <repeatable>true</repeatable>
+         <label>Subject Keywords</label>
+         <input-type value-pairs-name="subject_vocabularies">qualdrop_value</input-type>
+         <hint> Enter appropriate subject keywords or phrases below. </hint>
+         <required></required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>description</dc-element>
+         <dc-qualifier>abstract</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Abstract</label>
+         <input-type>textarea</input-type>
+         <hint> Enter the abstract of the item. Include all text as a single paragraph. Headings of structured abstracts should be capitalized and end with a colon, followed by a space before the text. e.g. METHODS: , RESULTS: , DISCUSSION: , CONCLUSION: </hint>
+         <required></required>
+       </field>
+
+     </page>
+   </form>
+      
    <form name="traditional">
      <page number="1">
        <field>
@@ -78,11 +358,22 @@
          <repeatable>false</repeatable>
          <label>Date of Issue</label>
          <input-type>date</input-type>
-         <hint>Please give the date of previous publication or public distribution
+         <hint>Enter the date of previous publication or public distribution
                         below.  You can leave out the day and/or month if they aren't
                         applicable.</hint>
          <required>You must enter at least the year.</required>
        </field>
+
+      <field>
+        <dc-schema>rft</dc-schema>
+        <dc-element>spage</dc-element>
+        <dc-qualifier></dc-qualifier>
+        <repeatable>false</repeatable>
+        <label>Starting Page Number</label>
+        <input-type>onebox</input-type>
+        <hint>Enter the starting page number if the item is part of a larger work</hint>
+        <required></required>
+     </field> 
 
        <field>
 		 <dc-schema>dc</dc-schema>
@@ -216,6 +507,174 @@ it, please enter the types and the actual numbers or codes below.</hint>
        </field>
       </page>
     </form>
+<!-- End form "one" -->
+
+    <form name="minimal1">
+     <page number="1">
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>contributor</dc-element>
+         <dc-qualifier>author</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Authors</label>
+                 <input-type>name</input-type>
+         <hint>Enter the names of the authors of this item below. For committee authorship, enter the committee's name in the Last Name field.</hint>
+         <required>You must enter an author.</required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>title</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Title</label>
+         <input-type>onebox</input-type>
+         <hint>Enter the main title of the item.</hint>
+         <required>You must enter a main title for this item.</required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>title</dc-element>
+         <dc-qualifier>alternative</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Other Titles</label>
+         <input-type>onebox</input-type>
+         <hint>If the item has any alternative titles, please enter them below.</hint>
+         <required></required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>date</dc-element>
+         <dc-qualifier>issued</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Date of Issue</label>
+         <input-type>date</input-type>
+         <hint>Please give the date of previous publication or public distribution
+                        below.  You can leave out the day and/or month if they aren't
+                        applicable.</hint>
+         <required>You must enter at least the year.</required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>publisher</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Publisher</label>
+         <input-type>onebox</input-type>
+         <hint>Enter the name of the publisher of the previously issued instance of this item.</hint>
+         <required></required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>identifier</dc-element>
+         <dc-qualifier>citation</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Citation</label>
+         <input-type>onebox</input-type>
+         <hint>Enter the standard citation for the previously issued instance of this item.</hint>
+         <required></required>
+       </field>
+<!-- Don't need this right now.
+       <field>
+         <dc-element>relation</dc-element>
+         <dc-qualifier>ispartofseries</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Series/Report No.</label>
+         <input-type>twobox</input-type>
+         <hint>Enter the series and number assigned to this item by your community.</hint>
+         <required></required>
+       </field>
+-->
+<!-- Don't need this right now
+       <field>
+         <dc-element>identifier</dc-element>
+         <dc-qualifier></dc-qualifier>
+-->
+         <!-- An input-type of qualdrop_value MUST be marked as repeatable -->
+<!--
+         <repeatable>true</repeatable>
+         <label>Identifiers</label>
+         <input-type value-pairs-name="common_identifiers">qualdrop_value</input-type>
+         <hint>If the item has any identification numbers or codes associated with
+it, please enter the types and the actual numbers or codes below.</hint>
+         <required></required>
+       </field>
+-->
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>type</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Type</label>
+         <input-type value-pairs-name="minimal_types">dropdown</input-type>
+         <hint> Select the type(s) of content you are submitting. To select more than one value in the list, hold down the "CTRL" or "Shift" key.</hint>
+         <required></required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>language</dc-element>
+         <dc-qualifier>iso</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Language</label>
+         <input-type value-pairs-name="common_iso_languages">dropdown</input-type>
+         <hint>Select the language of the main content of the item.  If the language does not appear in the list below, please select 'Other'.  If the content does not really have a language (for example, if it is a dataset or an image) please select 'N/A'.</hint>
+         <required></required>
+       </field>
+     </page>
+
+     <page number="2">
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>subject</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <!-- An input-type of twobox MUST be marked as repeatable -->
+         <repeatable>true</repeatable>
+         <label>Subject Keywords</label>
+         <input-type>twobox</input-type>
+         <hint> Enter appropriate subject keywords or phrases below. </hint>
+         <required></required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>description</dc-element>
+         <dc-qualifier>abstract</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Abstract</label>
+         <input-type>textarea</input-type>
+         <hint> Enter the abstract of the item below. </hint>
+         <required></required>
+       </field>
+
+       <field>
+		 <dc-schema>dc</dc-schema>
+         <dc-element>description</dc-element>
+         <dc-qualifier>sponsorship</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Sponsors</label>
+         <input-type>textarea</input-type>
+         <hint> Enter the names of any sponsors and/or funding codes in the box below. </hint>
+         <required></required>
+       </field>
+<!-- Don't need this right now
+       <field>
+         <dc-element>description</dc-element>
+         <dc-qualifier></dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Description</label>
+         <input-type>textarea</input-type>
+         <hint> Enter any other description or comments in this box. </hint>
+         <required></required>
+       </field>
+-->
+     </page>
+   </form>
+
  </form-definitions>
 
 
@@ -231,7 +690,80 @@ it, please enter the types and the actual numbers or codes below.</hint>
  <!-- Each pair contains a 'displayed-value' element and a 'stored-value'   -->
  <!-- element. A UI list displays the displayed-values, but the program     -->
  <!-- stores the associated stored-values in the database.                  -->
+ <form-value-pairs>
+ 	<value-pairs value-pairs-name="minimal_types" dc-term="type">
+ 	     <pair>
+       <displayed-value>Article</displayed-value>
+       <stored-value>Article</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Book</displayed-value>
+       <stored-value>Book</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Book chapter</displayed-value>
+       <stored-value>Book chapter</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Dataset</displayed-value>
+       <stored-value>Dataset</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Event</displayed-value>
+       <stored-value>Event</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Learning Object</displayed-value>
+       <stored-value>Learning Object</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Image</displayed-value>
+       <stored-value>Image</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Image, 3-D</displayed-value>
+       <stored-value>Image, 3-D</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Map</displayed-value>
+       <stored-value>Map</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Preprint</displayed-value>
+       <stored-value>Preprint</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Presentation</displayed-value>
+       <stored-value>Presentation</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Recording, oral</displayed-value>
+       <stored-value>Recording, oral</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Software</displayed-value>
+       <stored-value>Software</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Technical Report</displayed-value>
+       <stored-value>Technical Report</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Thesis</displayed-value>
+       <stored-value>Thesis</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Video</displayed-value>
+       <stored-value>Video</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Working Paper</displayed-value>
+       <stored-value>Working Paper</stored-value>
+     </pair>
 
+ 	</value-pairs>
+ </form-value-pairs>
+ 
  <form-value-pairs>
    <value-pairs value-pairs-name="common_identifiers" dc-term="identifier">
      <pair>
@@ -262,12 +794,12 @@ it, please enter the types and the actual numbers or codes below.</hint>
 
    <value-pairs value-pairs-name="common_types" dc-term="type">
      <pair>
-       <displayed-value>Animation</displayed-value>
-       <stored-value>Animation</stored-value>
-     </pair>
-     <pair>
        <displayed-value>Article</displayed-value>
        <stored-value>Article</stored-value>
+     </pair>   	
+     <pair>
+       <displayed-value>Animation</displayed-value>
+       <stored-value>Animation</stored-value>
      </pair>
      <pair>
        <displayed-value>Book</displayed-value>
@@ -280,6 +812,10 @@ it, please enter the types and the actual numbers or codes below.</hint>
      <pair>
        <displayed-value>Dataset</displayed-value>
        <stored-value>Dataset</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Event</displayed-value>
+       <stored-value>Event</stored-value>
      </pair>
      <pair>
        <displayed-value>Learning Object</displayed-value>
@@ -297,14 +833,18 @@ it, please enter the types and the actual numbers or codes below.</hint>
        <displayed-value>Map</displayed-value>
        <stored-value>Map</stored-value>
      </pair>
-     <pair>
+  <!--
+    <pair>
        <displayed-value>Musical Score</displayed-value>
        <stored-value>Musical Score</stored-value>
      </pair>
+  -->
+  <!--
      <pair>
        <displayed-value>Plan or blueprint</displayed-value>
        <stored-value>Plan or blueprint</stored-value>
      </pair>
+  -->
      <pair>
        <displayed-value>Preprint</displayed-value>
        <stored-value>Preprint</stored-value>
@@ -313,6 +853,7 @@ it, please enter the types and the actual numbers or codes below.</hint>
        <displayed-value>Presentation</displayed-value>
        <stored-value>Presentation</stored-value>
      </pair>
+   <!--
      <pair>
        <displayed-value>Recording, acoustical</displayed-value>
        <stored-value>Recording, acoustical</stored-value>
@@ -321,6 +862,7 @@ it, please enter the types and the actual numbers or codes below.</hint>
        <displayed-value>Recording, musical</displayed-value>
        <stored-value>Recording, musical</stored-value>
      </pair>
+   -->
      <pair>
        <displayed-value>Recording, oral</displayed-value>
        <stored-value>Recording, oral</stored-value>
@@ -345,20 +887,18 @@ it, please enter the types and the actual numbers or codes below.</hint>
        <displayed-value>Working Paper</displayed-value>
        <stored-value>Working Paper</stored-value>
      </pair>
+     <!--
      <pair>
        <displayed-value>Other</displayed-value>
        <stored-value>Other</stored-value>
      </pair>
+     -->
    </value-pairs>
 
    <!-- default language order: (from dspace 1.2.1)
         "en_US", "en", "es", "de", "fr", "it", "ja", "zh", "other", ""
      -->
    <value-pairs value-pairs-name="common_iso_languages" dc-term="language_iso">
-     <pair>
-       <displayed-value>N/A</displayed-value>
-       <stored-value></stored-value>
-     </pair>
      <pair>
        <displayed-value>English (United States)</displayed-value>
        <stored-value>en_US</stored-value>
@@ -395,7 +935,35 @@ it, please enter the types and the actual numbers or codes below.</hint>
        <displayed-value>(Other)</displayed-value>
        <stored-value>other</stored-value>
      </pair>
+     <pair>
+       <displayed-value>N/A</displayed-value>
+       <stored-value></stored-value>
+     </pair>     
    </value-pairs>
+   
+   <!-- Subject Headings/Descriptor vocabularies -->
+   <value-pairs value-pairs-name="subject_vocabularies" dc-term="subject">   	
+     <pair>
+       <displayed-value>MESH Term</displayed-value>
+       <stored-value>mesh</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>CINAHL Term</displayed-value>
+       <stored-value>cinahl</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>ICD9 Term</displayed-value>
+       <stored-value>icd9</stored-value>
+     </pair>         
+     <pair>
+       <displayed-value>LC Term</displayed-value>
+       <stored-value>lc</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Keyword</displayed-value>
+       <stored-value>other</stored-value>
+     </pair>         
+   </value-pairs   
 
     </form-value-pairs>
 
