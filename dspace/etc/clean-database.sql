@@ -1,9 +1,9 @@
 --
 -- clean-database.sql
 --
--- Version: $Revision$
+-- Version: $Revision: 5682 $
 --
--- Date:    $Date$
+-- Date:    $Date: 2010-10-28 16:52:41 +0100 (Thu, 28 Oct 2010) $
 --
 -- Copyright (c) 2002-2009, The DSpace Foundation.  All rights reserved.
 -- 

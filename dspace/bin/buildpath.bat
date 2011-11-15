@@ -1,9 +1,9 @@
 @REM
 @REM buildpath.bat
 @REM
-@REM Version: $Revision$
+@REM Version: $Revision: 3730 $
 @REM
-@REM Date: $Date$
+@REM Date: $Date: 2009-04-24 04:11:14 +0100 (Fri, 24 Apr 2009) $
 @REM
 @REM Copyright (c) 2002-2009, The DSpace Foundation.  All rights reserved.
 @REM

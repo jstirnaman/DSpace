@@ -45,14 +45,16 @@
     that avoids logging every request
 -->
 
-<schema name="example" version="1.2">
+<schema name="example" version="1.4">
   <!-- attribute "name" is the name of this schema and is only used for display purposes.
        Applications should change this to reflect the nature of the search collection.
-       version="1.2" is Solr's version number for the schema syntax and semantics.  It should
+       version="1.4" is Solr's version number for the schema syntax and semantics.  It should
        not normally be changed by applications.
        1.0: multiValued attribute did not exist, all fields are multiValued by nature
        1.1: multiValued attribute introduced, false by default
        1.2: omitTermFreqAndPositions attribute introduced, true by default except for text fields.
+       1.3: removed optional field compress feature
+       1.4: default auto-phrase (QueryParser feature) to off
      -->
 
   <types>
@@ -271,16 +273,7 @@
       </analyzer>
     </fieldType>
 
-        <!--
-     Setup simple analysis for spell checking
-     -->
-    <fieldType name="textSpell" class="solr.StrField" positionIncrementGap="100" >
-      <analyzer>
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-      </analyzer>
-    </fieldType>
+
 
     <!-- A general unstemmed text field - good if one does not know the language of the field -->
     <fieldType name="textgen" class="solr.TextField" positionIncrementGap="100">
@@ -410,36 +403,6 @@
          any data added to them will be ignored outright.  -->
     <fieldtype name="ignored" stored="false" indexed="false" multiValued="true" class="solr.StrField" />
 
-        <!-- This is an example of using the KeywordTokenizer along
-         With various TokenFilterFactories to produce a sortable field
-         that does not include some properties of the source text
-      -->
-    <fieldType name="handleIdentifier" class="solr.StrField" sortMissingLast="true" omitNorms="true">
-      <analyzer>
-          <!-- KeywordTokenizer does no actual tokenizing, so the entire
-             input string is preserved as a single token
-          -->
-        <tokenizer class="solr.KeywordTokenizerFactory"/>
-
-        <filter class="solr.LowerCaseFilterFactory" />
-        <!-- The TrimFilter removes any leading or trailing whitespace -->
-        <filter class="solr.TrimFilterFactory" />
-        <!-- The PatternReplaceFilter gives you the flexibility to use
-             Java Regular expression to replace any sequence of characters
-             matching a pattern with an arbitrary replacement string,
-             which may include back refrences to portions of the orriginal
-             string matched by the pattern.
-
-             See the Java Regular Expression documentation for more
-             infomation on pattern and replacement string syntax.
-
-             http://java.sun.com/j2se/1.5.0/docs/api/java/util/regex/package-summary.html
-          -->
-        <filter class="solr.PatternReplaceFilterFactory" pattern="http://hdl.handle.net/" replacement="" replace="all"/>
-
-      </analyzer>
-    </fieldType>
-
 
     <!-- This is an example of using the KeywordTokenizer along
          With various TokenFilterFactories to produce a sortable field
@@ -463,8 +426,7 @@
     <!--This field is used for auto complete features in the discovery search-->
     <fieldType name="dspaceAutoComplete" class="solr.TextField" sortMissingLast="true" omitNorms="true">
         <analyzer>
-            <!--Split everything up by space-->
-            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <tokenizer class="solr.KeywordTokenizerFactory"/>
 
             <!--Lower cases our values-->
             <filter class="solr.LowerCaseFilterFactory" />
@@ -538,10 +500,10 @@
    <field name="SolrIndexer.lastIndexed" type="date" indexed="true" stored="true" default="NOW" multiValued="false" omitNorms="true" />
 
    <!-- Custom Mapping to assure ds.creator is placed into dc.contributor.author by defualt -->
-   <copyField source="dc.creator" dest="dc.contributor.author"/>
-   <copyField source="dc.creator" dest="dc.contributor.author_ac"/>
-   <copyField source="dc.creator" dest="dc.contributor.author_filter"/>
-   <copyField source="dc.creator" dest="dc.contributor.author_sort"/>
+   <!--<copyField source="dc.creator" dest="dc.contributor.author"/>-->
+   <!--<copyField source="dc.creator" dest="dc.contributor.author_ac"/>-->
+   <!--<copyField source="dc.creator" dest="dc.contributor.author_filter"/>-->
+   <!--<copyField source="dc.creator" dest="dc.contributor.author_sort"/>-->
 
 
      <!--Dynamic field used for search autocompletion-->
@@ -555,7 +517,7 @@
 
      <!--Date matching-->
     <dynamicField name="*.year" type="sint" indexed="true" stored="true" multiValued="true" omitNorms="true" />
-    <dynamicField name="*_dt" type="date" indexed="true" stored="true" multiValued="true" omitNorms="true" />
+    <dynamicField name="*_dt" type="date" indexed="true" stored="true" multiValued="false" omitNorms="true" />
 
 
     <!--Used for matching on all other fields-->
@@ -565,7 +527,6 @@
         results by manufacturer.  copied from "manu" via copyField -->
    <!--<field name="manu_exact" type="string" indexed="true" stored="false"/>-->
 
-   <!--<field name="spell" type="textSpell" indexed="true" stored="true" multiValued="true"/>-->
    <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
         will be used if the name matches any of the patterns.
         RESTRICTION: the glob-like pattern in the name attribute must have

@@ -13,13 +13,14 @@
    <parent>
       <groupId>org.dspace</groupId>
       <artifactId>modules</artifactId>
-      <version>1.7.1</version>
+      <version>1.8.0</version>
+      <relativePath>..</relativePath>
    </parent>
 
    <scm>
-      <connection>scm:svn:https://scm.dspace.org/svn/repo/dspace/tags/dspace-1.7.1</connection>
-      <developerConnection>scm:svn:https://scm.dspace.org/svn/repo/dspace/tags/dspace-1.7.1</developerConnection>
-      <url>http://scm.dspace.org/svn/repo/dspace/tags/dspace-1.7.1</url>
+      <connection>scm:svn:https://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0</connection>
+      <developerConnection>scm:svn:https://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0/dspace/modules/xmlui</developerConnection>
+      <url>http://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0/dspace/modules/xmlui</url>
    </scm>
 
    <build>
@@ -82,6 +83,7 @@
          web.xml etc.
       -->
       <profile>
+         <id>dspace-config</id>
          <activation>
             <property>
                <name>dspace.config</name>
@@ -142,17 +144,35 @@
 
       <dependency>
          <groupId>org.dspace</groupId>
+         <artifactId>dspace-discovery-solr</artifactId>
+         <version>1.8.0</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.dspace</groupId>
          <artifactId>dspace-discovery-xmlui-api</artifactId>
-         <version>1.7.1</version>
+         <version>1.8.0</version>
       </dependency>
 
       <dependency>
          <groupId>org.dspace</groupId>
          <artifactId>dspace-discovery-xmlui-webapp</artifactId>
-         <version>1.7.1</version>
+         <version>1.8.0</version>
          <type>war</type>
       </dependency>
 
+        <dependency>
+         <groupId>org.dspace</groupId>
+         <artifactId>dspace-sword-client-xmlui-api</artifactId>
+         <version>1.8.0</version>
+      </dependency>
+
+       <dependency>
+         <groupId>org.dspace</groupId>
+         <artifactId>dspace-sword-client-xmlui-webapp</artifactId>
+         <version>1.8.0</version>
+         <type>war</type>
+      </dependency>
 
       <!-- DSpace XMLUI API -->
       <dependency>
@@ -166,6 +186,12 @@
          <version>2.3</version>
          <scope>provided</scope>
       </dependency>
+
+       <!--  A bit untidy but needed for XMLUI Sword client -->
+       <dependency>
+           <groupId>org.dspace</groupId>
+           <artifactId>dspace-sword-api</artifactId>
+       </dependency>
 
    </dependencies>
 

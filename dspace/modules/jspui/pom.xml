@@ -10,7 +10,8 @@
 	<parent>
 		<groupId>org.dspace</groupId>
 		<artifactId>modules</artifactId>
-		<version>1.7.1</version>
+		<version>1.8.0</version>
+        <relativePath>..</relativePath>
 	</parent>
 
 	<profiles>
@@ -28,6 +29,7 @@
 			the configuration.
 		-->
 		<profile>
+            <id>dspace-config</id>
 			<activation>
 				<property>
 					<name>dspace.config</name>
@@ -73,9 +75,9 @@
 	</profiles>
 
 	<scm>
-		<connection>scm:svn:https://scm.dspace.org/svn/repo/dspace/tags/dspace-1.7.1</connection>
-		<developerConnection>scm:svn:https://scm.dspace.org/svn/repo/dspace/tags/dspace-1.7.1</developerConnection>
-		<url>http://scm.dspace.org/svn/repo/dspace/tags/dspace-1.7.1</url>
+		<connection>scm:svn:https://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0</connection>
+		<developerConnection>scm:svn:https://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0/dspace/modules/jspui</developerConnection>
+		<url>http://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0/dspace/modules/jspui</url>
 	</scm>
 
 	<build>

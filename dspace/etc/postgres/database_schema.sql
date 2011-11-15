@@ -1,9 +1,9 @@
 --
 -- database_schema.sql
 --
--- Version: $Revision$
+-- Version: $Revision: 6574 $
 --
--- Date:    $Date$
+-- Date:    $Date: 2011-08-19 09:10:34 +0100 (Fri, 19 Aug 2011) $
 --
 -- Copyright (c) 2002-2009, The DSpace Foundation.  All rights reserved.
 --
@@ -270,9 +270,10 @@ CREATE INDEX item2bundle_bundle_fk_idx ON Item2Bundle(bundle_id);
 -------------------------------------------------------
 CREATE TABLE Bundle2Bitstream
 (
-  id           INTEGER PRIMARY KEY,
-  bundle_id    INTEGER REFERENCES Bundle(bundle_id),
-  bitstream_id INTEGER REFERENCES Bitstream(bitstream_id)
+  id              INTEGER PRIMARY KEY,
+  bundle_id       INTEGER REFERENCES Bundle(bundle_id),
+  bitstream_id    INTEGER REFERENCES Bitstream(bitstream_id),
+  bitstream_order INTEGER
 );
 
 -- index by bundle_id

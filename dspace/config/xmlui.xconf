@@ -40,8 +40,8 @@
     - The XMLUI (Manakin Release) configuration file
     -
     - Authors: Scott Phillips
-    - Version: $Revision$
-    - Date:    $Date$
+    - Version: $Revision: 6533 $
+    - Date:    $Date: 2011-08-07 12:19:38 +0100 (Sun, 07 Aug 2011) $
 -->
 
 <xmlui>
@@ -71,6 +71,8 @@
         <aspect name="E-Person" path="resource://aspects/EPerson/" />
         <aspect name="Submission and Workflow" path="resource://aspects/Submission/" />
 	    <aspect name="Statistics" path="resource://aspects/Statistics/" />
+	    <aspect name="Original Workflow" path="resource://aspects/Workflow/" />
+	    <!--<aspect name="XMLWorkflow" path="resource://aspects/XMLWorkflow/" />-->
         <!--
             To enable Discovery, uncomment this Aspect that will enable it
             within your existing XMLUI
@@ -78,6 +80,8 @@
             as leaving it on together with discovery will cause UI overlap issues
             <aspect name="Discovery" path="resource://aspects/Discovery/" />
         -->
+        <!--<aspect name="SwordClient" path="resource://aspects/SwordClient/" />-->
+
         <!--
             This aspect tests the various possible DRI features, 
             it helps a theme developer create themes 

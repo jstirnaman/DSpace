@@ -1,9 +1,9 @@
 --
 -- update-sequences.sql
 --
--- Version: $Revision$
+-- Version: $Revision: 5691 $
 --
--- Date:    $Date$
+-- Date:    $Date: 2010-10-29 17:50:15 +0100 (Fri, 29 Oct 2010) $
 --
 -- Copyright (c) 2002-2009, The DSpace Foundation.  All rights reserved.
 -- 
