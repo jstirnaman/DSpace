@@ -13,7 +13,7 @@
             <map:reader name="ConcatenationReader" src="org.dspace.app.xmlui.cocoon.ConcatenationReader"/>
         </map:readers>
                 <map:generators default="file">
-                        <map:generator name="DSpaceNLMGenerator" src="org.dspace.app.xmlui.cocoon.DSpaceNLMGenerator"/>
+                        <map:generator name="DSpaceNLMGenerator" src="DSpaceNLMGenerator"/>
                </map:generators>   
     </map:components>
 
