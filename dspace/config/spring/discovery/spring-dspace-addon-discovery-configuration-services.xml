@@ -29,6 +29,8 @@
                     -->
                 <!--The default entry, DO NOT REMOVE the system requires this-->
                <entry key="default" value-ref="defaultConfiguration" />
+               <entry key="site" value-ref="siteConfiguration" />
+               
 
                <!--Use site to override the default configuration for the home page & default discovery page-->
                <!--<entry key="site" value-ref="defaultConfiguration" />-->
@@ -82,12 +84,63 @@
             <bean class="org.dspace.discovery.configuration.DiscoveryRecentSubmissionsConfiguration">
                 <property name="metadataSortField" value="dc.date.accessioned" />
                 <property name="type" value="date"/>
-                <property name="max" value="5"/>
+                <property name="max" value="10"/>
             </bean>
         </property>
     </bean>
 
-
+    <!--The default configuration settings for discovery-->
+    <!-- Default configuration except higher count for Recent Submissions. Unfortunately, it seems
+         you have to replicate all the settings instead of inheriting what we don't want to change.
+    -->
+    <bean id="siteConfiguration" class="org.dspace.discovery.configuration.DiscoveryConfiguration" scope="prototype">
+        <!--Which sidebar facets are to be displayed-->
+        <property name="sidebarFacets">
+            <list>
+                <ref bean="sidebarFacetAuthor" />
+                <ref bean="sidebarFacetSubject" />
+                <ref bean="sidebarFacetDateIssued" />
+            </list>
+        </property>
+        <!--The search filters which can be used on the discovery search page-->
+        <property name="searchFilters">
+            <list>
+                <ref bean="searchFilterTitle" />
+                <ref bean="searchFilterAuthor" />
+                <ref bean="searchFilterSubject" />
+                <ref bean="searchFilterIssued" />
+            </list>
+        </property>
+        <!--The sort filters for the discovery search-->
+        <property name="searchSortConfiguration">
+            <bean class="org.dspace.discovery.configuration.DiscoverySortConfiguration">
+                <!--<property name="defaultSort" ref="sortDateIssued"/>-->
+                <!--DefaultSortOrder can either be desc or asc (desc is default)-->
+                <property name="defaultSortOrder" value="desc"/>
+                <property name="sortFields">
+                    <list>
+                        <ref bean="sortTitle" />
+                        <ref bean="sortDateIssued" />
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <!--Any default filter queries, these filter queries will be used for all queries done by discovery for this configuration-->
+        <!--<property name="defaultFilterQueries">-->
+            <!--<list>-->
+                <!--Only find items-->
+                <!--<value>search.resourcetype:2</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--The configuration for the recent submissions-->
+        <property name="recentSubmissionConfiguration">
+            <bean class="org.dspace.discovery.configuration.DiscoveryRecentSubmissionsConfiguration">
+                <property name="metadataSortField" value="dc.date.accessioned" />
+                <property name="type" value="date"/>
+                <property name="max" value="4"/>
+            </bean>
+        </property>
+    </bean>
 
     <!--Search filter configuration beans-->
     <bean id="searchFilterTitle" class="org.dspace.discovery.configuration.DiscoverySearchFilter">
