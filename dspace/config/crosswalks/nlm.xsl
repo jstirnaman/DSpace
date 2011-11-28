@@ -23,24 +23,25 @@
        
     <xsl:output doctype-public="-//NLM//DTD PubMed 2.0//EN" doctype-system="http://www.ncbi.nlm.nih.gov:80/entrez/query/static/PubMed.dtd" indent="yes"/>
  	  
-    <xsl:template match="/">
+
     	
     Ideally, the root ArticleSet element would be applied here, but it's set in the DSpaceNLMGenerator instead.
-    
+ --> 
+    <xsl:template match="/">  
       <xsl:element name="ArticleSet">
     	<xsl:apply-templates select="*[@dspaceType='ITEM' and dspace:field[@element ='type']='Article']"/>
       </xsl:element>     
     </xsl:template>
--->       
+     
 	<xsl:template match="*[@dspaceType='ITEM' and dspace:field[@element ='type']='Article']">
 			<xsl:variable name="handle">
 				<xsl:value-of select="concat('hdl:',substring-after(dspace:field[@element ='identifier' and @qualifier='uri'],'http://hdl.handle.net/'))"/>
 			</xsl:variable>
 		<xsl:element name="Article">
 		<!-- Apply Journal data templates -->		
-			<xsl:element name="Journal">
+			<xsl:element name="Journal">			
 				<xsl:apply-templates select="dspace:field[@element='publisher']" mode="journalFields"/>
-				<xsl:apply-templates select="dspace:field[@element='ispartof'" mode="journalFields"/>
+				<xsl:apply-templates select="dspace:field[@element='ispartof']" mode="journalFields"/>
 				<xsl:apply-templates select="dspace:field[@element='date' and @qualifier='available']" mode="journalFields"/>
 			</xsl:element>
 	    <!-- Apply Article data templates -->
@@ -71,22 +72,24 @@
 	<!-- Get Journal Title, Issn, Volume, and Issue from Relation:isPartOf -->
 	<xsl:template match="dspace:field[@element='ispartof']" mode="journalFields">
 		<xsl:choose>
-			<xsl:when test="[@qualifier='issn']">
+
+			<xsl:when test="@qualifier='issn'">
 				<xsl:element name="Issn">
 					<xsl:value-of select="text()"/>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="[@qualifier='volume']">
+
+			<xsl:when test="@qualifier='volume'">
 				<xsl:element name="Volume">
 					<xsl:value-of select="text()"/>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="[@qualifier='issue']">
+			<xsl:when test="@qualifier='issue'">
 				<xsl:element name="Issue">
 					<xsl:value-of select="text()"/>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="[@qualifier='title']">
+			<xsl:when test="@qualifier='title'">
 				<xsl:element name="JournalTitle">
 					<xsl:value-of select="text()"/>
 				</xsl:element>
@@ -148,12 +151,14 @@
 			</xsl:element>
 			<xsl:if test="position()=1">
 		      <xsl:element name="Affiliation">
-		      	<xsl:if test="starts-with(dspace:field[@element='contributor' and @qualifier='organization'],'Institution:')"
+		      	<xsl:choose>
+		      	<xsl:when test="starts-with(dspace:field[@element='contributor' and @qualifier='organization'],'Institution:')">
 				  <xsl:value-of select="translate(substring-after(../dspace:field[@element='contributor' and @qualifier='organization'],'Institution:'),':',',')"/>
+	            </xsl:when>	        
 		        <xsl:otherwise>
 		        	<xsl:value-of select="../dspace:field[@element='contributor' and @qualifier='organization']"/>
 		        </xsl:otherwise>
-		        </xsl:if>
+		        </xsl:choose>
 		      </xsl:element>			    
 			</xsl:if>		    
 		</xsl:element>
