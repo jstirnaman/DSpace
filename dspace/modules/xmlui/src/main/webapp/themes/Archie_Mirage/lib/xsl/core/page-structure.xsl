@@ -178,7 +178,7 @@
 <link type="text/css" rel="stylesheet" media="screen" href="http://www.kumc.edu/css/template2009/grid-min.css"/>
 <link type="text/css" rel="stylesheet" media="screen" href="http://www.kumc.edu/css/template2009/kulayout.css"/>
 <link type="text/css" rel="stylesheet" media="screen" href="http://www.kumc.edu/css/template2009/kupresentation.css"/>
-<link type="text/css" rel="stylesheet" media="screen" href="/xmlui/themes/Archie_Mirage/lib/css/local.css"/>
+
 <!--[if IE 6]>
 <link href="http://www.kumc.edu/css/template2009/ku_ie6.css" media="screen" rel="stylesheet" type="text/css" />
 <![endif]-->
@@ -356,56 +356,126 @@
           &#160;
         </div>
         <div class="span-9 last" id="search">
-          <form action="http://cgi.kumc.edu/cgi-bin/advsearch" method="get" class="search">
-            <label accesskey="S" class="hidden" for="searchtype">Search Type</label>
-            <select id="searchtype" name="location">
-              <option selected="selected" value="1">Search KUMC web site</option>
-              <option value="23">Search phone directory</option>
-            </select>
-            <label accesskey="I" class="hidden" for="searchtext">Search Text</label>
-            <input title="keyword/name" value="keyword/name" class="kumc_searchform input" alt="enter search terms" size="20" name="search" id="searchtext"/>
-            <input type="image" alt="Search" src="http://www.kumc.edu/Images/icons/search.gif" name="Search" class="button"/>
-          </form>
-          <ul class="links">
-            <li><a accesskey="1" href="http://www.kumc.edu/">KUMC Home</a></li>
-            <li><a href="https://my.kumc.edu/">myKUMC</a></li>
-            <li><a href="http://webmail.kumc.edu/">Email</a></li>
-            <li><a href="https://my.kumc.edu/cas/login?service=https://elearning.kumc.edu/angel/KUMC_login.aspx">ANGEL</a></li>
-            <li id="azpopuplink"><a onclick="return false;" href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=all">A-Z<img alt="A-Z Links" class="azcarot" src="http://www.kumc.edu/Images/icons/downcarot.gif"/></a></li>
-          </ul>
-          <div id="azbox">
-            <ul>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=A">A</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=B">B</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=C">C</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=D">D</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=E">E</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=F">F</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=G">G</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=H">H</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=I">I</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=J">J</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=K">K</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=L">L</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=M">M</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=N">N</a></li>
-            </ul>
-            <ul>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=O">O</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=P">P</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Q">Q</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=R">R</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=S">S</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=T">T</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=U">U</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=V">V</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=W">W</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=X">X</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Y">Y</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Z">Z</a></li>
-              <li><a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=all">all</a></li>
-            </ul>
-          </div>
+<form action="http://www.kumc.edu/googlesearch/Search.aspx" class="search" id="cse-search-box" method="get">
+<div>
+<input name="cx" type="hidden" value="016253077276564549295:wgpvnlwdiya"/>
+<input name="cof" type="hidden" value="FORID:9"/>
+<input name="ie" type="hidden" value="UTF-8"/>
+<label accesskey="I" class="searchlabel" for="txtTop">Search</label>
+<input autocomplete="off" class="kumc_searchform input" id="txtTop" name="q" onfocus="this.value='';" size="40" type="text" value="kumc.edu"/>
+<input alt="Search" class="button" name="sa" src="http://www.kumc.edu/Images/icons/search.gif" type="image"/>
+</div>
+</form>
+<ul class="links">
+<li>
+<a href="https://my.kumc.edu/">myKUMC</a>
+</li>
+<li>
+<a href="http://webmail.kumc.edu/">Email</a>
+</li>
+<li>
+<a href="https://my.kumc.edu/cas/login?service=https://elearning.kumc.edu/angel/KUMC_login.aspx">Angel</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory">Directory</a>
+</li>
+<li>
+<a href="http://library.kumc.edu">Library</a>
+</li>
+<li id="azpopuplink">
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=all" onclick="return false;">
+A-Z
+<img alt="A-Z Links" class="azcarot" src="http://www.kumc.edu/Images/icons/downcarot.gif"/>
+</a>
+</li>
+</ul>
+<div id="azbox">
+<ul>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=A">A</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=B">B</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=C">C</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=D">D</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=E">E</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=F">F</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=G">G</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=H">H</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=I">I</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=J">J</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=K">K</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=L">L</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=M">M</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=N">N</a>
+</li>
+</ul>
+<ul>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=O">O</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=P">P</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Q">Q</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=R">R</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=S">S</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=T">T</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=U">U</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=V">V</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=W">W</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=X">X</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Y">Y</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Z">Z</a>
+</li>
+<li>
+<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=all">all</a>
+</li>
+</ul>
+</div>
         </div>
       </div>
       <div id="topnav" class="span-24 last">
