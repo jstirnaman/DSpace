@@ -50,13 +50,18 @@
             </list>
         </property>
         <!--The search filters which can be used on the discovery search page-->
+           <!-- <list> -->
+                <!-- <ref bean="searchFilterTitle" /> -->
+                <!-- <ref bean="searchFilterAuthor" /> -->
+                <!-- <ref bean="searchFilterSubject" /> -->
+                <!-- <ref bean="searchFilterIssued" /> -->                
+           <!-- </list> -->
+        <!--KUMC.JTS Remove all ref elements so that searchFilters don't display.
+            It seems like a clunky waste of space, especially with the sidebarFacetFilters
+            available.
+        -->
         <property name="searchFilters">
-            <list>
-                <ref bean="searchFilterTitle" />
-                <ref bean="searchFilterAuthor" />
-                <ref bean="searchFilterSubject" />
-                <ref bean="searchFilterIssued" />
-            </list>
+        	<list</list>
         </property>
         <!--The sort filters for the discovery search-->
         <property name="searchSortConfiguration">
@@ -103,13 +108,14 @@
             </list>
         </property>
         <!--The search filters which can be used on the discovery search page-->
+           <!-- <list> -->
+                <!-- <ref bean="searchFilterTitle" /> -->
+                <!-- <ref bean="searchFilterAuthor" /> -->
+                <!-- <ref bean="searchFilterSubject" /> -->
+                <!-- <ref bean="searchFilterIssued" /> -->                
+           <!-- </list> -->
         <property name="searchFilters">
-            <list>
-                <ref bean="searchFilterTitle" />
-                <ref bean="searchFilterAuthor" />
-                <ref bean="searchFilterSubject" />
-                <ref bean="searchFilterIssued" />
-            </list>
+        	<list></list>
         </property>
         <!--The sort filters for the discovery search-->
         <property name="searchSortConfiguration">
