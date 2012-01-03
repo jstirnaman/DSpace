@@ -179,7 +179,7 @@
 <link type="text/css" rel="stylesheet" media="screen" href="http://www.kumc.edu/css/template2009/kulayout.css"/>
 <link type="text/css" rel="stylesheet" media="screen" href="http://www.kumc.edu/css/template2009/kupresentation.css"/>
                     <!-- Add local.css to override DSpace and KUMC styles -->
-<link type="text/css" rel="stylesheet" media="screen" href="themes/Archie_Mirage/lib/css/local.css"/>   
+<link type="text/css" rel="stylesheet" media="screen" href="/themes/Archie_Mirage/lib/css/local.css"/>   
 <!--[if IE 6]>
 <link href="http://www.kumc.edu/css/template2009/ku_ie6.css" media="screen" rel="stylesheet" type="text/css" />
 <![endif]-->
