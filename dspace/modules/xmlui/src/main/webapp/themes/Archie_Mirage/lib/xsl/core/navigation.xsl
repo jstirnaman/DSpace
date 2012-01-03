@@ -118,6 +118,7 @@
             <!-- Once the search box is built, the other parts of the options are added -->
             <xsl:apply-templates />
         </div>
+       </div>
     </xsl:template>
 
 
