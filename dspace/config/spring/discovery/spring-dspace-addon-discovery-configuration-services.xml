@@ -61,7 +61,7 @@
             available.
         -->
         <property name="searchFilters">
-        	<list</list>
+        	<list></list>
         </property>
         <!--The sort filters for the discovery search-->
         <property name="searchSortConfiguration">
