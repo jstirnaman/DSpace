@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Institutions
+-->
+<node id="PUBLICATION" label="Publication">
+			<isComposedBy>
+				<node id="KJM" label="Kansas Journal of Medicine"/>
+			</isComposedBy>
+</node>
