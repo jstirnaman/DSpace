@@ -147,9 +147,7 @@
                     <map:parameter name="stylesheet.screen#3" value="lib/css/helper.css"/>
                     <map:parameter name="stylesheet.screen#4" value="lib/css/jquery-ui-1.8.15.custom.css"/>
                     <map:parameter name="stylesheet.screen#5" value="lib/css/style.css"/>
-                    <map:parameter name="stylesheet.screen#6" value="lib/css/authority-control.css"/>
-                    <!-- KUMC.JTS Add local.css for custom styles -->
-                    <map:parameter name="stylesheet.screen#7" value="lib/css/local.css"/>                   
+                    <map:parameter name="stylesheet.screen#6" value="lib/css/authority-control.css"/>                
                 </map:transform>
 
                 <map:transform type="IncludePageMeta">
