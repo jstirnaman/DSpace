@@ -1,7 +1,8 @@
 /**KUMC custom stylesheet**/
 
 /**Override element styles**/
-ul li {list-style-type: none;
+ul li {
+	list-style-type: none;
     margin: 0px;    
 }
 
@@ -75,6 +76,7 @@ form#aspect_discovery_SiteViewer_div_front-page-search > p:first-child {
 div#tmpSlideshow {
 	height: 175px;
 	min-height: 175px;
+	width: 525px;
 }
 
 div#tmpSlideshowControls {
