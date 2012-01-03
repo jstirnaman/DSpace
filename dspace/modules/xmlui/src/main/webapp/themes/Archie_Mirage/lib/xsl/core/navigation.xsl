@@ -42,8 +42,9 @@
     -->
     <!-- TODO: figure out why i18n tags break the go button -->
     <xsl:template match="dri:options">
+      <div id="ds-options-wrapper"><!--KUMC.JTS Add a container div for setting width of options column. -->
         <div id="ds-options">
-            <h3 id="ds-search-option-head" class="ds-option-set-head"><i18n:text>xmlui.dri2xhtml.structural.search</i18n:text></h3>
+            <h1 id="ds-search-option-head" class="ds-option-set-head"><i18n:text>xmlui.dri2xhtml.structural.search</i18n:text></h1>
             <div id="ds-search-option" class="ds-option-set">
                 <!-- The form, complete with a text box and a button, all built from attributes referenced
                     from under pageMeta. -->
