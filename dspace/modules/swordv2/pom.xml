@@ -16,7 +16,11 @@
    <parent>
       <groupId>org.dspace</groupId>
       <artifactId>modules</artifactId>
+<<<<<<< HEAD
       <version>1.8.0</version>
+=======
+      <version>1.8.2</version>
+>>>>>>> ea1a6c480eff6a36aacf5de9583e4b24e239849f
       <relativePath>..</relativePath>
    </parent>
 
@@ -26,9 +30,15 @@
       into the snapshot repository below.
    -->
    <scm>
+<<<<<<< HEAD
       <connection>scm:svn:http://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0/dspace/modules/swordv2</connection>
       <developerConnection>scm:svn:https://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0/dspace/modules/swordv2</developerConnection>
       <url>http://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0/dspace/modules/swordv2</url>
+=======
+      <connection>scm:svn:http://scm.dspace.org/svn/repo/tags/dspace-1.8.2</connection>
+      <developerConnection>scm:svn:https://scm.dspace.org/svn/repo/tags/dspace-1.8.2</developerConnection>
+      <url>http://scm.dspace.org/svn/repo/tags/dspace-1.8.2</url>
+>>>>>>> ea1a6c480eff6a36aacf5de9583e4b24e239849f
    </scm>
 
    <build>

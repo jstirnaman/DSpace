@@ -28,13 +28,13 @@
                     the value-ref is a reference to an identifier of the DiscoveryConfiguration format
                     -->
                 <!--The default entry, DO NOT REMOVE the system requires this-->
-               <entry key="default" value-ref="defaultConfiguration" />
-               <entry key="site" value-ref="siteConfiguration" />
-               
 
                <!--Use site to override the default configuration for the home page & default discovery page-->
                <!--<entry key="site" value-ref="defaultConfiguration" />-->
                <!--<entry key="123456789/7621" value-ref="defaultConfiguration"/>-->
+               
+               <entry key="default" value-ref="defaultConfiguration" />
+               <entry key="site" value-ref="siteConfiguration" />
             </map>
         </property>
     </bean>
@@ -117,6 +117,7 @@
         <property name="searchFilters">
         	<list></list>
         </property>
+
         <!--The sort filters for the discovery search-->
         <property name="searchSortConfiguration">
             <bean class="org.dspace.discovery.configuration.DiscoverySortConfiguration">

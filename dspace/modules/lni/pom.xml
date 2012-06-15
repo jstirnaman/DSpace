@@ -12,14 +12,24 @@
    <parent>
       <groupId>org.dspace</groupId>
       <artifactId>modules</artifactId>
+<<<<<<< HEAD
       <version>1.8.0</version>
+=======
+      <version>1.8.2</version>
+>>>>>>> ea1a6c480eff6a36aacf5de9583e4b24e239849f
         <relativePath>..</relativePath>
    </parent>
 
    <scm>
+<<<<<<< HEAD
       <connection>scm:svn:https://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0</connection>
       <developerConnection>scm:svn:https://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0/dspace/modules/lni</developerConnection>
       <url>http://scm.dspace.org/svn/repo/dspace/tags/dspace-1.8.0/dspace/modules/lni</url>
+=======
+      <connection>scm:svn:https://scm.dspace.org/svn/repo/tags/dspace-1.8.2</connection>
+      <developerConnection>scm:svn:https://scm.dspace.org/svn/repo/tags/dspace-1.8.2</developerConnection>
+      <url>http://scm.dspace.org/svn/repo/tags/dspace-1.8.2</url>
+>>>>>>> ea1a6c480eff6a36aacf5de9583e4b24e239849f
    </scm>
 
    <build>
