@@ -141,7 +141,7 @@
             initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
             maximum-scale = 1.0 retains dimensions instead of zooming in if page width < device width
             -->
-            <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,"/>
 
             <link rel="shortcut icon">
                 <xsl:attribute name="href">
@@ -349,7 +349,7 @@
          <xsl:attribute name="src">
            <xsl:text>http://www.kumc.edu/js/jqueryui/1.7.2/jquery-ui-1.7.2.custom.min.js</xsl:text>
          </xsl:attribute>&#160;</script>
-         
+      <!-- Looks like Internet Dev has limited the slideshow to only cycle through 3 slides? -->
        <script type="text/javascript">
          <xsl:attribute name="src">
            <xsl:text>http://www.kumc.edu/js/jqueryplugins/NEWSlideshow.js</xsl:text>
@@ -691,17 +691,10 @@
 				<p>Outstanding papers by KU nursing students</p>
 			</a>
 		</div>
-		<div class="tmpSlide" id="tmpSlide-4">
-			<a onclick="window.open(this.href); return false;" title="opens in new window" href="/handle/2271/187">
-				<img width="520" height="150" title="Video and Presentations from the Open Access Symposium" alt="" src="/themes/Archie_Mirage/images/archie_slideshow_massmatter.png"/>
-				<p>Video and Presentations from the Open Access Symposium</p>
-			</a>			
-	    </div>
 	    <div id="tmpSlideshowControls">
 			<div id="tmpSlideshowControl-1" class="tmpSlideshowControl"><span>1</span></div>
 			<div id="tmpSlideshowControl-2" class="tmpSlideshowControl"><span>2</span></div>
-			<div id="tmpSlideshowControl-3" class="tmpSlideshowControl"><span>3</span></div>
-			<div id="tmpSlideshowControl-4" class="tmpSlideshowControl"><span>4</span></div>			
+			<div id="tmpSlideshowControl-3" class="tmpSlideshowControl"><span>3</span></div>		
 	    </div>
 	</div>
   </xsl:template>
