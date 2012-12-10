@@ -28,10 +28,17 @@
 	xmlns:xhtml="http://www.w3.org/1999/xhtml"
 	xmlns:mods="http://www.loc.gov/mods/v3"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:confman="org.dspace.core.ConfigurationManager"
 	xmlns="http://www.w3.org/1999/xhtml"
-	exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc">
+	exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc confman">
 
     <xsl:output indent="yes"/>
+
+    <!--
+        Requested Page URI. Some functions may alter behavior of processing depending if URI matches a pattern.
+        Specifically, adding a static page will need to override the DRI, to directly add content.
+    -->
+    <xsl:variable name="request-uri" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI']"/>
 
     <!--
         The starting point of any XSL processing is matching the root element. In DRI the root element is document,
@@ -74,6 +81,9 @@
                         <!--The header div, complete with title, subtitle and other junk-->
                         <xsl:call-template name="buildHeader"/>
 
+                        <!--The trail is built by applying a template over pageMeta's trail children. -->
+                        <xsl:call-template name="buildTrail"/>
+
                         <!--javascript-disabled warning, will be invisible if javascript is enabled-->
                         <div id="no-js-warning-wrapper" class="hidden">
                             <div id="no-js-warning">
@@ -97,15 +107,15 @@
                                 <xsl:apply-templates/>
                             </div>
                         </div>
-                   </div>
+                   </div> <!-- End kubackground -->
 
                         <!--
                             The footer div, dropping whatever extra information is needed on the page. It will
                             most likely be something similar in structure to the currently given example. -->
                         <xsl:call-template name="buildFooter"/>
 
-                    </div>
-                    </div>
+                    </div> <!-- End kutemplate -->
+                    </div> <!-- End ds-main -->
                 </xsl:otherwise>
             </xsl:choose>
                 <!-- Javascript at the bottom for fast page loading -->
@@ -289,13 +299,16 @@
                     <xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='contextPath'][not(@qualifier)]"/>
                     <xsl:text>/themes/</xsl:text>
                     <xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='theme'][@qualifier='path']"/>
-                    <xsl:text>/lib/js/modernizr-1.5.min.js</xsl:text>
+                    <xsl:text>/lib/js/modernizr-1.7.min.js</xsl:text>
                 </xsl:attribute>&#160;</script>
 
             <!-- Add the title in -->
             <xsl:variable name="page_title" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='title']" />
             <title>
                 <xsl:choose>
+                        <xsl:when test="starts-with($request-uri, 'page/about')">
+                                <xsl:text>About This Repository</xsl:text>
+                        </xsl:when>
                         <xsl:when test="not($page_title)">
                                 <xsl:text>  </xsl:text>
                         </xsl:when>
@@ -349,147 +362,12 @@
     <!-- The header (distinct from the HTML head element) contains the title, subtitle, login box and various
         placeholders for header images -->
     <xsl:template name="buildHeader">
-       <!-- KUMC.JTS KUMC header. -->
-     <div id="header" class="container">
-       <div class="span-24 last">
-        <div class="span-9" id="logo"><a href="http://www.kumc.edu"><img alt="The University of Kansas Medical Center" src="http://www.kumc.edu/Images/logos/kumclogo_w.png" class="png" id="mylogo"/></a></div>
-        <div class="span-6" id="buildingicon">
-          &#160;
-        </div>
-        <div class="span-9 last" id="search">
-<form action="http://www.kumc.edu/googlesearch/Search.aspx" class="search" id="cse-search-box" method="get">
-<div>
-<input name="cx" type="hidden" value="016253077276564549295:wgpvnlwdiya"/>
-<input name="cof" type="hidden" value="FORID:9"/>
-<input name="ie" type="hidden" value="UTF-8"/>
-<label accesskey="I" class="searchlabel" for="txtTop">Search</label>
-<input autocomplete="off" class="kumc_searchform input" id="txtTop" name="q" onfocus="this.value='';" size="40" type="text" value="kumc.edu"/>
-<input alt="Search" class="button" name="sa" src="http://www.kumc.edu/Images/icons/search.gif" type="image"/>
-</div>
-</form>
-<ul class="links">
-<li>
-<a href="https://my.kumc.edu/">myKUMC</a>
-</li>
-<li>
-<a href="http://webmail.kumc.edu/">Email</a>
-</li>
-<li>
-<a href="https://my.kumc.edu/cas/login?service=https://elearning.kumc.edu/angel/KUMC_login.aspx">Angel</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory">Directory</a>
-</li>
-<li>
-<a href="http://library.kumc.edu">Library</a>
-</li>
-<li id="azpopuplink">
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=all" onclick="return false;">
-A-Z
-<img alt="A-Z Links" class="azcarot" src="http://www.kumc.edu/Images/icons/downcarot.gif"/>
-</a>
-</li>
-</ul>
-<div id="azbox">
-<ul>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=A">A</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=B">B</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=C">C</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=D">D</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=E">E</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=F">F</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=G">G</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=H">H</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=I">I</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=J">J</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=K">K</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=L">L</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=M">M</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=N">N</a>
-</li>
-</ul>
-<ul>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=O">O</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=P">P</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Q">Q</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=R">R</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=S">S</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=T">T</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=U">U</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=V">V</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=W">W</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=X">X</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Y">Y</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Z">Z</a>
-</li>
-<li>
-<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=all">all</a>
-</li>
-</ul>
-</div>
-        </div>
-      </div>
-      <div id="topnav" class="span-24 last">
-        <h2>Archie Digital Collections</h2>
-        <div id="toptabnav">
-          <!--The trail is built by applying a template over pageMeta's trail children. -->
-          <xsl:call-template name="buildTrail"/>
-        </div>
-      </div>
-    </div>
-      
-      <!-- KUMC.JTS Mirage header. -->                   
-            <div id="ds-header">
+    	<!-- KUMC.JTS Insert KUMC Header -->
+    	<xsl:call-template name="kumc-header"/>
+     
+      <!-- KUMC.JTS Begin Mirage header. --> 
+          <div id="ds-header-wrapper">                 
+            <div id="ds-header" class="clearfix">
                   <!-- KUMC.JTS Omit the Mirage logo
                   <a id="ds-header-logo-link">
                     <xsl:attribute name="href">
@@ -518,11 +396,10 @@ A-Z
                     <i18n:text>xmlui.dri2xhtml.structural.head-subtitle</i18n:text>
                 </h2>
 
-
-<!-- The login box was originally here. -->
+<!-- KUMC.JTS The login box was originally here. -->
 
             </div>
-
+          </div>
     </xsl:template>
 
 
@@ -530,66 +407,22 @@ A-Z
         placeholders for header images -->
     <xsl:template name="buildTrail">
         <div id="ds-trail-wrapper">
-        
-                            <xsl:choose>
-                    <xsl:when test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'yes'">
-                        <div id="ds-user-box">
-                            <p>
-                                <a>
-                                    <xsl:attribute name="href">
-                                        <xsl:value-of select="/dri:document/dri:meta/dri:userMeta/
-                                        dri:metadata[@element='identifier' and @qualifier='url']"/>
-                                    </xsl:attribute>
-                                    <i18n:text>xmlui.dri2xhtml.structural.profile</i18n:text>
-                                    <xsl:value-of select="/dri:document/dri:meta/dri:userMeta/
-                                    dri:metadata[@element='identifier' and @qualifier='firstName']"/>
-                                    <xsl:text> </xsl:text>
-                                    <xsl:value-of select="/dri:document/dri:meta/dri:userMeta/
-                                    dri:metadata[@element='identifier' and @qualifier='lastName']"/>
-                                </a>
-                                <xsl:text> | </xsl:text>
-                                <a>
-                                    <xsl:attribute name="href">
-                                        <xsl:value-of select="/dri:document/dri:meta/dri:userMeta/
-                                        dri:metadata[@element='identifier' and @qualifier='logoutURL']"/>
-                                    </xsl:attribute>
-                                    <i18n:text>xmlui.dri2xhtml.structural.logout</i18n:text>
-                                </a>
-                            </p>
-                        </div>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <div id="ds-user-box">
-                            <p>
-                                <a>
-                                    <xsl:attribute name="href">
-                                        <xsl:value-of select="/dri:document/dri:meta/dri:userMeta/
-                                        dri:metadata[@element='identifier' and @qualifier='loginURL']"/>
-                                    </xsl:attribute>
-                                    <i18n:text>xmlui.dri2xhtml.structural.login</i18n:text>
-                                </a>
-                            </p>
-                        </div>
-                    </xsl:otherwise>
-                </xsl:choose>
-                
             <ul id="ds-trail">
                 <xsl:choose>
+                    <xsl:when test="starts-with($request-uri, 'page/about')">
+                         <xsl:text>About This Repository</xsl:text>
+                    </xsl:when>
                     <xsl:when test="count(/dri:document/dri:meta/dri:pageMeta/dri:trail) = 0">
                         <li class="ds-trail-link first-link">-</li>
                     </xsl:when>
                     <xsl:otherwise>
-                    <li class="ds-trail-link first-link"><a href="http://library.kumc.edu" title="KUMC A.R. Dykes Library">Library</a></li>
-                    <li class="ds-trail-arrow">:</li>
                         <xsl:apply-templates select="/dri:document/dri:meta/dri:pageMeta/dri:trail"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </ul>
-
         </div>
-
-        
     </xsl:template>
+                
 
     <xsl:template match="dri:trail">
         <!--put an arrow between the parts of the trail-->
@@ -625,13 +458,72 @@ A-Z
         </li>
     </xsl:template>
 
+    <xsl:template name="cc-license">
+        <xsl:param name="metadataURL"/>
+        <xsl:variable name="externalMetadataURL">
+            <xsl:text>cocoon:/</xsl:text>
+            <xsl:value-of select="$metadataURL"/>
+            <xsl:text>?sections=dmdSec,fileSec&amp;fileGrpTypes=THUMBNAIL</xsl:text>
+        </xsl:variable>
 
+        <xsl:variable name="ccLicenseName"
+                      select="document($externalMetadataURL)//dim:field[@element='rights']"
+                      />
+        <xsl:variable name="ccLicenseUri"
+                      select="document($externalMetadataURL)//dim:field[@element='rights'][@qualifier='uri']"
+                      />
+        <xsl:variable name="handleUri">
+                    <xsl:for-each select="document($externalMetadataURL)//dim:field[@element='identifier' and @qualifier='uri']">
+                        <a>
+                            <xsl:attribute name="href">
+                                <xsl:copy-of select="./node()"/>
+                            </xsl:attribute>
+                            <xsl:copy-of select="./node()"/>
+                        </a>
+                        <xsl:if test="count(following-sibling::dim:field[@element='identifier' and @qualifier='uri']) != 0">
+                            <xsl:text>, </xsl:text>
+                        </xsl:if>
+                </xsl:for-each>
+        </xsl:variable>
+
+   <xsl:if test="$ccLicenseName and $ccLicenseUri and contains($ccLicenseUri, 'creativecommons')">
+        <div about="{$handleUri}">
+            <xsl:attribute name="style">
+                <xsl:text>margin:0em 2em 0em 2em; padding-bottom:0em;</xsl:text>
+            </xsl:attribute>
+            <a rel="license"
+                href="{$ccLicenseUri}"
+                alt="{$ccLicenseName}"
+                title="{$ccLicenseName}"
+                >
+                <img>
+                     <xsl:attribute name="src">
+                        <xsl:value-of select="concat($theme-path,'/images/cc-ship.gif')"/>
+                     </xsl:attribute>
+                     <xsl:attribute name="alt">
+                         <xsl:value-of select="$ccLicenseName"/>
+                     </xsl:attribute>
+                     <xsl:attribute name="style">
+                         <xsl:text>float:left; margin:0em 1em 0em 0em; border:none;</xsl:text>
+                     </xsl:attribute>
+                </img>
+            </a>
+            <span>
+                <xsl:attribute name="style">
+                    <xsl:text>vertical-align:middle; text-indent:0 !important;</xsl:text>
+                </xsl:attribute>
+                <i18n:text>xmlui.dri2xhtml.METS-1.0.cc-license-text</i18n:text>
+                <xsl:value-of select="$ccLicenseName"/>
+            </span>
+        </div>
+        </xsl:if>
+    </xsl:template>
 
     <!-- Like the header, the footer contains various miscellanious text, links, and image placeholders -->
     <xsl:template name="buildFooter">
-
+        <!-- KUMC.JTS <div id="ds-footer-wrapper"> -->
             <div id="ds-footer">
-            <!--
+            <!-- KUMC.JTS
                 <div id="ds-footer-left">
                     <a href="http://www.dspace.org/" target="_blank">DSpace software</a> copyright&#160;&#169;&#160;2002-2010&#160; <a href="http://www.duraspace.org/" target="_blank">Duraspace</a>
                 </div>
@@ -671,6 +563,7 @@ A-Z
                     <xsl:text>&#160;</xsl:text>
                 </a>
             </div>
+            <!-- KUMC.JTS KUMC Footer -->
             <div id="footer">
               <div class="container" id="concave">
                 <div id="myfooter" class="container">
@@ -727,7 +620,7 @@ A-Z
               </div>
             </div>
           </div>
-
+          <!-- KUMC.JTS </div> -->
     </xsl:template>
 
 
@@ -751,6 +644,26 @@ A-Z
                     </p>
                 </div>
             </xsl:if>
+
+            <!-- Check for the custom pages -->
+            <xsl:choose>
+                <xsl:when test="starts-with($request-uri, 'page/about')">
+                    <div>
+                        <h1>About This Repository</h1>
+                        <p>To add your own content to this page, edit webapps/xmlui/themes/Mirage/lib/xsl/core/page-structure.xsl and
+                            add your own content to the title, trail, and body. If you wish to add additional pages, you
+                            will need to create an additional xsl:when block and match the request-uri to whatever page
+                            you are adding. Currently, static pages created through altering XSL are only available
+                            under the URI prefix of page/.</p>
+                    </div>
+                </xsl:when>
+                <!-- Otherwise use default handling of body -->
+                <xsl:otherwise>
+                    <xsl:apply-templates />
+                </xsl:otherwise>
+            </xsl:choose>
+            
+            <!-- KUMC.JTS Call slideshow only from homepage -->           
             <xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'][not(string(.))]">
               <xsl:call-template name="archieSlideshow"/>
             </xsl:if>
@@ -763,24 +676,24 @@ A-Z
     	<div id="tmpSlideshow">
 		<div class="tmpSlide" id="tmpSlide-1">
 		    <a onclick="window.open(this.href); return false;" title="opens in new window" href="/">
-				<img width="520" height="150" title="Archie - Digital Collections@KUMC" alt="Archie - Digital Collections at KUMC" src="http://library.kumc.edu/images/archielogo_150.gif"/>			
+				<img width="520" height="150" title="Archie - Digital Collections@KUMC" alt="Archie - Digital Collections at KUMC" src="/themes/Archie_Mirage/images/archielogo_150.gif"/>			
 			</a>
 		</div>
 		<div class="tmpSlide" id="tmpSlide-2">
 			<a onclick="window.open(this.href); return false;" title="opens in new window" href="/handle/2271/220/">
-				<img width="520" height="150" title="Original research, reviews, commentaries, and case studies" alt="Kansas Journal of Medicine" src="http://library.kumc.edu/images/archie_slideshow_kjm.png"/>
+				<img width="520" height="150" title="Original research, reviews, commentaries, and case studies" alt="Kansas Journal of Medicine" src="/themes/Archie_Mirage/images/archie_slideshow_kjm.png"/>
 			    <p>Original research, reviews, commentaries, and case studies</p>
 			</a>			
 		</div>
 		<div class="tmpSlide" id="tmpSlide-3">
 			<a onclick="window.open(this.href); return false;" title="opens in new window" href="/handle/2271/236">
-				<img width="520" height="150" title="Sigma Theta Tau Journal of Undergraduate Nursing Writing" alt="" src="http://library.kumc.edu/images/archie_slideshow_junsw.png"/>
+				<img width="520" height="150" title="Sigma Theta Tau Journal of Undergraduate Nursing Writing" alt="" src="/themes/Archie_Mirage/images/archie_slideshow_junsw.png"/>
 				<p>Outstanding papers by KU nursing students</p>
 			</a>
 		</div>
 		<div class="tmpSlide" id="tmpSlide-4">
 			<a onclick="window.open(this.href); return false;" title="opens in new window" href="/handle/2271/187">
-				<img width="520" height="150" title="Video and Presentations from the Open Access Symposium" alt="" src="http://library.kumc.edu/images/archie_slideshow_massmatter.png"/>
+				<img width="520" height="150" title="Video and Presentations from the Open Access Symposium" alt="" src="/themes/Archie_Mirage/images/archie_slideshow_massmatter.png"/>
 				<p>Video and Presentations from the Open Access Symposium</p>
 			</a>			
 	    </div>
@@ -792,6 +705,7 @@ A-Z
 	    </div>
 	</div>
   </xsl:template>
+
 
     <!-- Currently the dri:meta element is not parsed directly. Instead, parts of it are referenced from inside
         other elements (like reference). The blank template below ends the execution of the meta branch -->
@@ -807,20 +721,35 @@ A-Z
     -->
 
     <xsl:template name="addJavascript">
-        <script type="text/javascript">
-            <xsl:text disable-output-escaping="yes">var JsHost = (("https:" == document.location.protocol) ? "https://" : "http://");
-            document.write(unescape("%3Cscript src='" + JsHost + "ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));</xsl:text>
-        </script>
+        <xsl:variable name="jqueryVersion">
+            <xsl:text>1.6.2</xsl:text>
+        </xsl:variable>
+
+        <xsl:variable name="protocol">
+            <xsl:choose>
+                <xsl:when test="starts-with(confman:getProperty('dspace.baseUrl'), 'https://')">
+                    <xsl:text>https://</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>http://</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <script type="text/javascript" src="{concat($protocol, 'ajax.googleapis.com/ajax/libs/jquery/', $jqueryVersion ,'/jquery.min.js')}">&#160;</script>
 
         <xsl:variable name="localJQuerySrc">
                 <xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='contextPath'][not(@qualifier)]"/>
-                <xsl:text>/static/js/jquery-1.4.2.min.js</xsl:text>
+            <xsl:text>/static/js/jquery-</xsl:text>
+            <xsl:value-of select="$jqueryVersion"/>
+            <xsl:text>.min.js</xsl:text>
         </xsl:variable>
 
         <script type="text/javascript">
             <xsl:text disable-output-escaping="yes">!window.jQuery &amp;&amp; document.write('&lt;script type="text/javascript" src="</xsl:text><xsl:value-of
                 select="$localJQuerySrc"/><xsl:text disable-output-escaping="yes">"&gt;&#160;&lt;\/script&gt;')</xsl:text>
         </script>
+
+
 
         <!-- Add theme javascipt  -->
         <xsl:for-each select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='javascript'][not(@qualifier)]">
@@ -866,7 +795,7 @@ A-Z
         <xsl:if test="dri:body/dri:div[@n='lookup']">
           <xsl:call-template name="choiceLookupPopUpSetup"/>
         </xsl:if>
-        
+
         <!--PNG Fix for IE6-->
         <xsl:text disable-output-escaping="yes">&lt;!--[if lt IE 7 ]&gt;</xsl:text>
         <script type="text/javascript">
@@ -901,5 +830,146 @@ A-Z
            </xsl:text></script>
         </xsl:if>
     </xsl:template>
+    
+    <xsl:template name="kumc-header">
+    	       <!-- KUMC.JTS KUMC header. -->
+     <div id="header" class="container">
+       <div class="span-24 last">
+        <div class="span-9" id="logo"><a href="http://www.kumc.edu"><img alt="The University of Kansas Medical Center" src="http://www.kumc.edu/Images/logos/kumclogo_w.png" class="png" id="mylogo"/></a></div>
+        <div class="span-6" id="buildingicon">
+          &#160;
+        </div>
+        <div class="span-9 last" id="search">
+			<form action="http://www.kumc.edu/googlesearch/Search.aspx" class="search" id="cse-search-box" method="get">
+				<div>
+					<input name="cx" type="hidden" value="016253077276564549295:wgpvnlwdiya"/>
+					<input name="cof" type="hidden" value="FORID:9"/>
+					<input name="ie" type="hidden" value="UTF-8"/>
+					<label accesskey="I" class="searchlabel" for="txtTop">Search</label>
+					<input autocomplete="off" class="kumc_searchform input" id="txtTop" name="q" onfocus="this.value='';" size="40" type="text" value="kumc.edu"/>
+					<input alt="Search" class="button" name="sa" src="http://www.kumc.edu/Images/icons/search.gif" type="image"/>
+				</div>
+			</form>
+			<ul class="links">
+				<li>
+					<a href="https://my.kumc.edu/">myKUMC</a>
+				</li>
+				<li>
+					<a href="http://webmail.kumc.edu/">Email</a>
+				</li>
+				<li>
+					<a href="https://my.kumc.edu/cas/login?service=https://elearning.kumc.edu/angel/KUMC_login.aspx">Angel</a>
+				</li>
+				<li>
+					<a href="http://www2.kumc.edu/directory">Directory</a>
+				</li>
+				<li>
+					<a href="http://library.kumc.edu">Library</a>
+				</li>
+				<li id="azpopuplink">
+					<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=all" onclick="return false;">
+					A-Z
+					<img alt="A-Z Links" class="azcarot" src="http://www.kumc.edu/Images/icons/downcarot.gif"/>
+					</a>
+				</li>
+			</ul>
+			<div id="azbox">
+				<ul>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=A">A</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=B">B</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=C">C</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=D">D</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=E">E</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=F">F</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=G">G</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=H">H</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=I">I</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=J">J</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=K">K</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=L">L</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=M">M</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=N">N</a>
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=O">O</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=P">P</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Q">Q</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=R">R</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=S">S</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=T">T</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=U">U</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=V">V</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=W">W</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=X">X</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Y">Y</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Z">Z</a>
+					</li>
+					<li>
+						<a href="http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=all">all</a>
+					</li>
+				</ul>
+			</div>
+        </div>
+      </div>
+      <div id="topnav" class="span-24 last">
+        <h2>Archie Digital Collections</h2>
+        <div id="toptabnav">
+          <!--The trail is built by applying a template over pageMeta's trail children. -->
+          <xsl:call-template name="buildTrail"/>
+        </div>
+      </div>
+    </div>
+  </xsl:template>
 
 </xsl:stylesheet>
